@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     "igreja.apps.core",
     "igreja.apps.account",
+    "igreja.apps.web",
 ]
 
 MIDDLEWARE = [
