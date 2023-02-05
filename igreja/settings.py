@@ -1,7 +1,7 @@
 from pathlib import Path
-from decouple import config, Csv
-from dj_database_url import parse as parse_db_url
 
+from decouple import Csv, config
+from dj_database_url import parse as parse_db_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,7 @@ SECRET_KEY = config("SECRET_KEY")
 SITE_ABSOLUTE_URL = config("SITE_ABSOLUTE_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config("DEBUG", default=True, cast=bool)
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ["*"]
@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "igreja.apps.core",
     "igreja.apps.account",
     "igreja.apps.web",
@@ -73,10 +72,10 @@ SITE_ID = 1
 # Database
 
 DATABASES = {
-    'default': config(
-        'DATABASE_URL',
-        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
-        cast=parse_db_url
+    "default": config(
+        "DATABASE_URL",
+        default="sqlite:///" + str(BASE_DIR / "db.sqlite3"),
+        cast=parse_db_url,
     )
 }
 
@@ -86,46 +85,49 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa
     },
 ]
 
 
 def get_cache():
-  try:
-    servers = config('MEMCACHE_SERVERS', cast=Csv())
-    username = config('MEMCACHE_USERNAME')
-    password = config('MEMCACHE_PASSWORD')
-    return {
-      'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        # TIMEOUT is not the connection timeout! It's the default expiration
-        # timeout that should be applied to keys! Setting it to `None`
-        # disables expiration.
-        'TIMEOUT': None,
-        'LOCATION': servers,
-        'OPTIONS': {
-          'username': username,
-          'password': password,
+    try:
+        servers = config("MEMCACHE_SERVERS", cast=Csv())
+        username = config("MEMCACHE_USERNAME")
+        password = config("MEMCACHE_PASSWORD")
+        return {
+            "default": {
+                "BACKEND": "django_bmemcached.memcached.BMemcached",
+                # TIMEOUT is not the connection timeout!
+                #   It's the default expiration
+                # timeout that should be applied to keys!
+                #   Setting it to `None`
+                # disables expiration.
+                "TIMEOUT": None,
+                "LOCATION": servers,
+                "OPTIONS": {
+                    "username": username,
+                    "password": password,
+                },
+            }
         }
-      }
-    }
-  except Exception as err:
-    print(err)
-    return {
-      'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
-      }
-    }
+    except Exception as err:
+        print(err)
+        return {
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
+            }
+        }
+
 
 CACHES = get_cache()
 print(CACHES)
@@ -147,7 +149,9 @@ USE_TZ = True
 
 STATIC_URL = "staticfiles/"
 STATIC_ROOT = BASE_DIR / "staticfiles/statics/"
-STATICFILES_DIRS = [BASE_DIR / "staticfiles",]
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from model_utils import FieldTracker
 
 from igreja.apps.account.managers import CustomUserManager
-from .enum import UserInteractionCategoriesChoices, ContactMeanTypesChoices
+
+from .enum import ContactMeanTypesChoices, UserInteractionCategoriesChoices
 
 
 class CustomUser(AbstractUser):
@@ -186,7 +187,9 @@ class Address(models.Model):
 
 class ContactMeans(models.Model):
     type_enum = ContactMeanTypesChoices
-    type = models.PositiveSmallIntegerField("Tipo", choices=ContactMeanTypesChoices.choices)
+    type = models.PositiveSmallIntegerField(
+        "Tipo", choices=ContactMeanTypesChoices.choices
+    )
     contact = models.CharField("Contato", max_length=200)
     is_public = models.BooleanField("Público", default=False)
     user = models.ForeignKey(
@@ -331,7 +334,7 @@ class Profile(models.Model):
         if self.user:
             return str(self.user)
         return "Usuário não associado"
-    
+
 
 class UserInteraction(models.Model):
     user = models.ForeignKey(
@@ -342,7 +345,7 @@ class UserInteraction(models.Model):
     category = models.CharField(
         max_length=32,
         editable=False,
-        choices=UserInteractionCategoriesChoices.choices
+        choices=UserInteractionCategoriesChoices.choices,
     )
     source = models.CharField(
         blank=True, null=True, max_length=100, help_text="Origem"
@@ -355,7 +358,6 @@ class UserInteraction(models.Model):
         ]
         verbose_name = "Histórico do Usuário"
         verbose_name_plural = "Históricos dos Usuários"
-    
 
     def __str__(self) -> str:
-        return f'{self.pk} - {self.user} - {self.category}'
+        return f"{self.pk} - {self.user} - {self.category}"

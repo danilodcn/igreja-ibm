@@ -8,6 +8,7 @@ clear:
 	rm -f ./.coverage
 
 .PHONE: run
+
 dev:
 	./.docker/development/entrypoint.sh
 

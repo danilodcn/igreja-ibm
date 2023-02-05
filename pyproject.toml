@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "igreja"}]
 
 [tool.black]
-line-length = 79
+line-length = 80
 target-version = [ "py39",]
 include = "\\.pyi?$"
 
@@ -29,6 +29,7 @@ python-decouple = "^3.7"
 ipdb = "^0.13.11"
 black = "^23.1.0"
 isort = "^5.12.0"
+flake8 = "^6.0.0"
 
 
 [tool.poetry.group.prod.dependencies]

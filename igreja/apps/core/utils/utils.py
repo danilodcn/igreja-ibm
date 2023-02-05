@@ -1,4 +1,4 @@
-from typing import List, Tuple, Any
+from typing import Any, List, Tuple
 from urllib.parse import urljoin
 
 from django.conf import settings
@@ -17,8 +17,10 @@ def get_admin_url(obj):
 
 
 def get_field_display(
-        choices: List[Tuple[int | str], Any], value: int | str, raise_exception=False
-    ):
+    choices: List[Tuple[int | str], Any],
+    value: int | str,
+    raise_exception=False,
+):
     for i, choice in choices:
         if i == value:
             return choice

@@ -7,7 +7,7 @@ from igreja.apps.account.models import (
     ContactMeans,
     CustomUser,
     Profile,
-    UserInteraction
+    UserInteraction,
 )
 
 
