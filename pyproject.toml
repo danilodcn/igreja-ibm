@@ -4,7 +4,13 @@ version = "0.1.0"
 description = ""
 authors = ["Danilo Nascimento <daconnas.dcn@gmail.com>"]
 readme = "README.md"
-packages = [{include = "igreja_ibm"}]
+packages = [{include = "igreja"}]
+
+[tool.black]
+line-length = 79
+target-version = [ "py39",]
+include = "\\.pyi?$"
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
