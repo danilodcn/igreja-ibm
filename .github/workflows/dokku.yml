@@ -20,7 +20,7 @@ jobs:
 
     - name: Deploy to dokku
       id: deploy
-      uses: dokku/github-action@v1
+      uses: dokku/github-action@v1.4.0
       with:
         ssh-private-key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
         dokku-host: 'my-dokku-host.com'
