@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-
 env:
   DOKKU_HOST: 34.196.25.75
   DOKKU_APP_NAME: ibm-prod
@@ -14,7 +13,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment:
+      name: production
+      url: https://ibm-prod.danilokerolayne.tk
     steps:
     - uses: actions/checkout@v2
       with:
