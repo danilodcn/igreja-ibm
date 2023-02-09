@@ -20,9 +20,9 @@ jobs:
 
     - name: Deploy to dokku
       id: deploy
-      uses: dokku/github-action
+      uses: dokku/github-action@v1
       with:
-          ssh-private-key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-          dokku-host: 'my-dokku-host.com'
-          app-name: 'my-dokku-app'
-          git_remote_url: ssh://dokku@${{ env.DOKKU_HOST }}:22/${{ env.DOKKU_APP_NAME }}
+        ssh-private-key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+        dokku-host: 'my-dokku-host.com'
+        app-name: 'my-dokku-app'
+        git_remote_url: ssh://dokku@${{ env.DOKKU_HOST }}:22/${{ env.DOKKU_APP_NAME }}
