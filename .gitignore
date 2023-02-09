@@ -2,7 +2,6 @@ pgdata/
 *.sqlite3
 .secrets.*
 staticfiles/
-.vscode
 ### Django ###
 # remove it where project in production
 

@@ -1,0 +1,9 @@
+{
+    "I python debugger": {
+        "prefix": "ipdb",
+        "body": [
+            "import ipdb; ipdb.set_trace()"
+        ],
+        "description": "I python debugger"
+    }
+}
