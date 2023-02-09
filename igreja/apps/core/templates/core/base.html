@@ -6,8 +6,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  {% block title %}
+  <title>{{ site_config.title|default:'IBM - Igreja Batista Missionária' }}</title>
+  {% endblock title %}
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -24,21 +25,30 @@
 </head>
 
 <body>
-
+  <div class="container-main">
   {% include 'core/nav/header.html' %}
   {% include 'core/nav/sidebar.html' %}
 
   <main id="main" class="main">
-
+    {% block breadcrumb %}
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>{{ page_config.breadcrumb.title }}</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          {% for page in page_config.breadcrumb.links %}
+          <li class="breadcrumb-item">
+            {% if page.href %}
+            <a href="{{ page.href }}">{{ page.title }}</a>
+            {% else %}
+            <span>{{ page.title }}</span>
+            {% endif %}
+          </li>
+          {% endfor %}
+          {% comment %} <li class="breadcrumb-item active">Dashboard</li> {% endcomment %}
         </ol>
       </nav>
     </div><!-- End Page Title -->
+    {% endblock breadcrumb %}
 
     <section class="section dashboard">
       <div class="row">
@@ -685,9 +695,9 @@
     >
     <i class="bi bi-arrow-up-short"></i>
   </a>
-{% include 'core/footer.html' %}
+  {% include 'core/footer.html' %}
   {% include 'core/js-assets.html' %}
-
+</div>
 </body>
 
 </html>
