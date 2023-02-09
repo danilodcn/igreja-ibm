@@ -31,6 +31,10 @@ class CustomUser(AbstractUser):
         profile, _ = Profile.objects.get_or_create(user=self)
         return profile
 
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
     def get_full_name(self):
         first_name = self.first_name.strip()
         last_name = self.last_name.strip()
