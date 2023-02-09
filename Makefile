@@ -1,3 +1,10 @@
+dev:
+	./manage.py runserver
+
+run:
+	@ echo Runnig the production apllication
+	gunicorn igreja.wsgi
+
 clear:
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -delete
@@ -8,13 +15,6 @@ clear:
 	rm -f ./.coverage
 
 .PHONE: run
-
-dev:
-	./.docker/development/entrypoint.sh
-
-run:
-	@ echo Runnig the production apllication
-	./.docker/production/entrypoint.sh
 
 statics:
 	poetry run python manage.py collectstatic --no-input --clear

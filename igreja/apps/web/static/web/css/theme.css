@@ -1,0 +1,6 @@
+:root {
+  --main-primary-color: rgb(59, 121, 74);
+  --main-200-primary-color: rgb(21, 61, 30);
+  --bs-primary-rgb: 38, 112, 55;
+  --bs-primary: rgb(--bs-primary-rgb);
+}

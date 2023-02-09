@@ -8,6 +8,7 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 :root {
   scroll-behavior: smooth;
 }
@@ -19,7 +20,7 @@ body {
 }
 
 a {
-  color: #4154f1;
+  color: var(--main-primary-color);
   text-decoration: none;
 }
 
@@ -63,7 +64,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 /*--------------------------------------------------------------
@@ -76,7 +77,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background: #4154f1;
+  background: var(--main-primary-color);
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -252,7 +253,7 @@ h6 {
   padding: 20px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
-  color: #012970;
+  color: var(--main-200-primary-color);
   font-family: "Poppins", sans-serif;
 }
 
@@ -298,7 +299,7 @@ h6 {
 }
 
 .accordion-button:not(.collapsed) {
-  color: #012970;
+  color: var(--main-200-primary-color);
   background-color: #f6f9ff;
 }
 
@@ -310,7 +311,7 @@ h6 {
 
 .accordion-flush .accordion-button:not(.collapsed) {
   box-shadow: none;
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .accordion-flush .accordion-body {
@@ -358,13 +359,13 @@ h6 {
 
 .nav-tabs-bordered .nav-link:hover,
 .nav-tabs-bordered .nav-link:focus {
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .nav-tabs-bordered .nav-link.active {
   background-color: #fff;
-  color: #4154f1;
-  border-bottom: 2px solid #4154f1;
+  color: var(--main-primary-color);
+  border-bottom: 2px solid var(--main-primary-color);
 }
 
 /*--------------------------------------------------------------
@@ -388,7 +389,7 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #012970;
+  color: var(--main-200-primary-color);
   font-family: "Nunito", sans-serif;
 }
 
@@ -407,7 +408,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 .header .search-bar {
@@ -444,7 +445,7 @@ h6 {
 .header .search-form input {
   border: 0;
   font-size: 14px;
-  color: #012970;
+  color: var(--main-200-primary-color);
   border: 1px solid rgba(1, 41, 112, 0.2);
   padding: 7px 38px 7px 8px;
   border-radius: 3px;
@@ -467,7 +468,7 @@ h6 {
 }
 
 .header .search-form button i {
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 /*--------------------------------------------------------------
@@ -484,13 +485,13 @@ h6 {
 
 .header-nav .nav-icon {
   font-size: 22px;
-  color: #012970;
+  color: var(--main-200-primary-color);
   margin-right: 25px;
   position: relative;
 }
 
 .header-nav .nav-profile {
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 .header-nav .nav-profile img {
@@ -700,7 +701,7 @@ h6 {
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: #4154f1;
+  color: var(--main-primary-color);
   transition: 0.3;
   background: #f6f9ff;
   padding: 10px 15px;
@@ -710,11 +711,11 @@ h6 {
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .sidebar-nav .nav-link.collapsed {
-  color: #012970;
+  color: var(--main-200-primary-color);
   background: #fff;
 }
 
@@ -723,12 +724,12 @@ h6 {
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #4154f1;
+  color: var(--main-primary-color);
   background: #f6f9ff;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -751,7 +752,7 @@ h6 {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #012970;
+  color: var(--main-200-primary-color);
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
@@ -766,11 +767,11 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .sidebar-nav .nav-content a.active i {
-  background-color: #4154f1;
+  background-color: var(--main-primary-color);
 }
 
 /*--------------------------------------------------------------
@@ -793,7 +794,7 @@ h6 {
 
 .dashboard .filter .icon:hover,
 .dashboard .filter .icon:focus {
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .dashboard .filter .dropdown-header {
@@ -821,7 +822,7 @@ h6 {
 
 .dashboard .info-card h6 {
   font-size: 28px;
-  color: #012970;
+  color: var(--main-200-primary-color);
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -837,7 +838,7 @@ h6 {
 }
 
 .dashboard .sales-card .card-icon {
-  color: #4154f1;
+  color: var(--main-primary-color);
   background: #f6f6fe;
 }
 
@@ -917,12 +918,12 @@ h6 {
 }
 
 .dashboard .news h4 a {
-  color: #012970;
+  color: var(--main-200-primary-color);
   transition: 0.3s;
 }
 
 .dashboard .news h4 a:hover {
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .dashboard .news p {
@@ -989,7 +990,7 @@ h6 {
   background-color: #fff;
   border-radius: 0.25rem;
   text-align: center;
-  color: #012970;
+  color: var(--main-200-primary-color);
   padding: 15px 0;
 }
 
@@ -1038,7 +1039,7 @@ h6 {
 }
 
 .profile .profile-card .social-links a:hover {
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 .profile .profile-overview .row {
@@ -1047,7 +1048,7 @@ h6 {
 }
 
 .profile .profile-overview .card-title {
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 .profile .profile-overview .label {
@@ -1070,7 +1071,7 @@ h6 {
 .faq .basic h6 {
   font-size: 18px;
   font-weight: 600;
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .faq .basic p {
@@ -1087,12 +1088,12 @@ h6 {
 .contact .info-box i {
   font-size: 38px;
   line-height: 0;
-  color: #4154f1;
+  color: var(--main-primary-color);
 }
 
 .contact .info-box h3 {
   font-size: 20px;
-  color: #012970;
+  color: var(--main-200-primary-color);
   font-weight: 700;
   margin: 20px 0 10px 0;
 }
@@ -1155,7 +1156,7 @@ h6 {
 
 .contact .php-email-form input:focus,
 .contact .php-email-form textarea:focus {
-  border-color: #4154f1;
+  border-color: var(--main-primary-color);
 }
 
 .contact .php-email-form input {
@@ -1167,7 +1168,7 @@ h6 {
 }
 
 .contact .php-email-form button[type=submit] {
-  background: #4154f1;
+  background: var(--main-primary-color);
   border: 0;
   padding: 10px 30px;
   color: #fff;
@@ -1209,7 +1210,7 @@ h6 {
 .error-404 h1 {
   font-size: 180px;
   font-weight: 700;
-  color: #4154f1;
+  color: var(--main-primary-color);
   margin-bottom: 0;
   line-height: 150px;
 }
@@ -1217,7 +1218,7 @@ h6 {
 .error-404 h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #012970;
+  color: var(--main-200-primary-color);
   margin-bottom: 30px;
 }
 
@@ -1249,12 +1250,12 @@ h6 {
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
+  color: var(--main-200-primary-color);
 }
 
 .footer .credits {
   padding-top: 5px;
   text-align: center;
   font-size: 13px;
-  color: #012970;
+  color: var(--main-200-primary-color);
 }

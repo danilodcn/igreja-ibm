@@ -122,7 +122,6 @@ def get_cache():
             }
         }
     except Exception as err:
-        print(err)
         return {
             "default": {
                 "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
@@ -131,7 +130,6 @@ def get_cache():
 
 
 CACHES = get_cache()
-print(CACHES)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
