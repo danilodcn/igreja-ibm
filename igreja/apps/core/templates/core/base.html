@@ -38,8 +38,10 @@
 <body>
   <div class="container-main">
   {% include 'core/nav/header.html' %}
-  {% include 'core/nav/sidebar.html' %}
 
+  {% if request.user.is_autentited %}
+  {% include 'core/nav/sidebar.html' %}
+  {% endif %}
   <main id="main" class="main">
     {% block breadcrumb %}
     <div class="pagetitle">

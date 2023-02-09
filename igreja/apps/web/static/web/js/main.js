@@ -48,6 +48,14 @@
   }
 
   /**
+   * Sidebar wide
+   */
+  if(!select("#sidebar-nav")) {
+    select('body').classList.toggle('toggle-sidebar')
+    select("div.container-main").classList.toggle("container")
+  }
+
+  /**
    * Search bar toggle
    */
   if (select('.search-bar-toggle')) {
