@@ -47,7 +47,7 @@ h6 {
   transition: all 0.3s;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   #main {
     padding: 20px;
   }
@@ -375,9 +375,9 @@ h6 {
   line-height: 1;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .logo {
-    width: 280px;
+    width: 240px;
   }
 }
 
@@ -416,7 +416,7 @@ h6 {
   padding: 0 20px;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   .header .search-bar {
     position: fixed;
     top: 50px;
@@ -630,7 +630,7 @@ h6 {
   background-color: #fff;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   .sidebar {
     left: -300px;
   }
@@ -654,7 +654,7 @@ h6 {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   .toggle-sidebar .sidebar {
     left: 0;
   }
