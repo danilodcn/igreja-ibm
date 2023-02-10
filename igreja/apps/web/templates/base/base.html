@@ -39,9 +39,11 @@
   <div class="container-main">
   {% include 'base/nav/header.html' %}
 
+  {% block sidebar %}
   {% if request.user.is_authenticated %}
   {% include 'base/nav/sidebar.html' %}
   {% endif %}
+  {% endblock sidebar %}
   <main id="main" class="main">
 
     {% block main %}
