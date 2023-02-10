@@ -1,1 +1,1 @@
-web: gunicorn igreja.wsgi
+web: newrelic-admin run-program gunicorn igreja.wsgi

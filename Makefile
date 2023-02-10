@@ -1,9 +1,9 @@
 dev:
-	./manage.py runserver
+	newrelic-admin run-program ./manage.py runserver 0.0.0.0:5000
 
 run:
 	@ echo Runnig the production apllication
-	gunicorn igreja.wsgi
+	newrelic-admin run-program gunicorn igreja.wsgi
 
 clear:
 	find . -type f -name "*.pyc" -delete
