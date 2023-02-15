@@ -22,7 +22,7 @@
     </form>
   </div><!-- End Search Bar -->
 
-  <nav class="header-nav ms-auto">
+  <nav class="header-nav ms-auto ml-auto">
     <ul class="d-flex align-items-center">
 
       <li class="nav-item d-block d-lg-none">
@@ -35,7 +35,13 @@
 
       <li class="nav-item dropdown">
 
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        <a
+          class="nav-link nav-icon"
+          href=""
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           <i class="bi bi-bell"></i>
           <span class="badge bg-primary badge-number">4</span>
         </a><!-- End Notification Icon -->
@@ -110,7 +116,13 @@
 
       <li class="nav-item dropdown pe-3">
 
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+        <a 
+          class="nav-link nav-profile d-flex align-items-center pe-0"
+          href=""
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           <img src="staticfiles/web/img/profile-img.jpg" alt="Profile" class="rounded-circle">
           <span class="d-none d-md-block dropdown-toggle ps-2">
             {{ request.user.full_name|default:'Sem Nome' }}
@@ -157,7 +169,7 @@
           </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="#">
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
               <i class="bi bi-box-arrow-right"></i>
               <span>Sair</span>
             </a>
@@ -169,7 +181,14 @@
       {% else %}
       <li class="nav-item dropdown pe-3">
 
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        <a 
+          class="nav-link nav-icon"
+          href=""
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           <i class="bi bi-person-circle"></i>
         </a><!-- End default Profile Image Icon -->
 

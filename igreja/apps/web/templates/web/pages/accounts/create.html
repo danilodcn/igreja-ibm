@@ -29,28 +29,35 @@
                 <p class="text-center small">Entre com seu email pessoal para criar a conta</p>
               </div>
 
-              <form class="row g-3 needs-validation" novalidate action="{{request.path}}">
+              <form class="row g-3 needs-validation" novalidate method="POST">
+                {% csrf_token %}
                 <div class="col-12">
-                  <label for="yourName" class="form-label">Seu Nome</label>
-                  <input type="text" name="name" class="form-control" id="yourName" required>
+                  <label for="{{ form.first_name.auto_id }}" class="form-label">Seu Nome</label>
+                  <input type="text" name="{{ form.first_name.name }}" class="form-control" id="{{ form.first_name.auto_id }}" required>
                   <div class="invalid-feedback">Por favor, insira seu nome!</div>
                 </div>
 
                 <div class="col-12">
-                  <label for="yourEmail" class="form-label">Seu email</label>
-                  <input type="email" name="email" class="form-control" id="yourEmail" required>
+                  <label for="{{ form.last_name.auto_id }}" class="form-label">Seu Sobrenome</label>
+                  <input type="text" name="{{ form.last_name.name }}" class="form-control" id="{{ form.last_name.auto_id }}" required>
+                  <div class="invalid-feedback">Por favor, insira seu sobrenome!</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="{{ form.email.auto_id }}" class="form-label">Seu email</label>
+                  <input type="email" name="{{ form.email.name }}" class="form-control" id="{{ form.email.auto_id }}" required>
                   <div class="invalid-feedback">Por favor, insira um email válido!</div>
                 </div>
 
                 <div class="col-12">
-                  <label for="yourPassword" class="form-label">Senha</label>
-                  <input type="password" name="password" class="form-control" id="yourPassword" required>
+                  <label for="{{ form.password_1.auto_id }}" class="form-label">Senha</label>
+                  <input type="password" name="{{ form.password_1.name }}" class="form-control" id="{{ form.password_1.auto_id }}" required>
                   <div class="invalid-feedback">Insira sua senha!</div>
                 </div>
 
                 <div class="col-12">
-                  <label for="yourPassword" class="form-label">Confirmaçao de senha</label>
-                  <input type="password" name="password" class="form-control" id="yourPassword" required>
+                  <label for="{{ form.password_2.auto_id }}" class="form-label">Confirmaçao de senha</label>
+                  <input type="password" name="{{ form.password_2.name }}" class="form-control" id="{{ form.password_2.auto_id }}" required>
                   <div class="invalid-feedback">Inira a confirmação se senha!</div>
                 </div>
 
@@ -58,9 +65,10 @@
                   <div class="form-check">
                     <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
                     <label class="form-check-label" for="acceptTerms">Eu aceito os <a href="#">termos e condições</a></label>
-                    <div class="invalid-feedback">You must agree before submitting.</div>
+                    <div class="invalid-feedback">Voce deve aceitar os termos.</div>
                   </div>
                 </div>
+
                 <div class="col-12">
                   <button class="btn btn-primary w-100" type="submit">Criar conta</button>
                 </div>
@@ -71,11 +79,6 @@
 
             </div>
           </div>
-          <form method="post">
-            {% csrf_token %}
-            {{ form.name.label }}
-            <input type="submit" value="Submit">
-        </form>
         </div>
       </div>
     </div>
@@ -83,5 +86,12 @@
   </section>
 
 </div>
+
+<style>
+  .register .logo img {
+    max-height: 75px;
+    margin-right: 6px;
+  }
+</style>
 
 {% endblock main %}
