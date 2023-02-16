@@ -1,33 +1,16 @@
-from typing import Any
-from django.views.generic.edit import FormView
-from django.views import View
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
-from django.shortcuts import redirect, render
-from django import forms
+from django.shortcuts import redirect
+
 from igreja.apps.account.models import CustomUser
-from django.contrib import messages
-from django.contrib.messages.api import get_messages
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from igreja.apps.web.views.accounts.forms import CustomUserForm,  LoginForm
 from igreja.apps.core.utils.redirect import get_redirect
 
-
-
-class FormBaseView(FormView):
-    def form_invalid(self, form) -> HttpResponse:
-        for errors in form.errors.values():
-            for msg in errors:
-                messages.error(self.request, msg)
-        return super().form_invalid(form)
-    
-    def get_success_url(self) -> str:
-        url = get_redirect(self.request.GET)
-        if url:
-            return url
-        return super().get_success_url()
+from ..base_views import FormBaseView
 
 
 class AccountFormBaseView(FormBaseView):

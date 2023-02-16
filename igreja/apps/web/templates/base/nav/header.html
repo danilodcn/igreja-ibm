@@ -123,7 +123,7 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img src="staticfiles/web/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+          <img src="{% static 'web/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
           <span class="d-none d-md-block dropdown-toggle ps-2 pl-2">
             {{ request.user.full_name|default:'Sem Nome' }}
           </span>
@@ -153,21 +153,12 @@
           </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'accounts_profile' %}">
               <i class="bi bi-person"></i>
               <span>Meu perfil</span>
             </a>
           </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
 
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-              <i class="bi bi-gear"></i>
-              <span>Configurações de conta</span>
-            </a>
-          </li>
           <li>
             <hr class="dropdown-divider">
           </li>

@@ -91,7 +91,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #6776f4;
+  background: var(--main-200-primary-color);
   color: #fff;
 }
 
@@ -1053,12 +1053,12 @@ h6 {
 
 .profile .profile-overview .label {
   font-weight: 600;
-  color: rgba(1, 41, 112, 0.6);
+  color: var(--main-primary-color)
 }
 
 .profile .profile-edit label {
   font-weight: 600;
-  color: rgba(1, 41, 112, 0.6);
+  color: var(--main-primary-color);
 }
 
 .profile .profile-edit img {
