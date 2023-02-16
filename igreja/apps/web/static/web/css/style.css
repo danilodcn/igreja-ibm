@@ -1259,3 +1259,8 @@ h6 {
   font-size: 13px;
   color: var(--main-200-primary-color);
 }
+
+.section .logo img {
+  max-height: 75px;
+  margin-right: 6px;
+}

@@ -43,8 +43,10 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "igreja.apps.core.middleware.QueryStringMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "igreja.urls"
 
@@ -65,7 +67,6 @@ TEMPLATES = [
     },
 ]
 
-from django.contrib.messages.context_processors import messages
 
 MESSAGE_TAGS = {
     message_constants.DEBUG: 'debug',

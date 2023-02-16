@@ -1,4 +1,5 @@
 from igreja.apps.core.types.pages import Breadcrumb, PageLink
+from .utils.redirect import get_redirect
 
 def web_context(request):
     breadcrumb = Breadcrumb(
@@ -9,8 +10,13 @@ def web_context(request):
                 PageLink(title="dashboard"),
             ]
         )
+    
+    next = get_redirect(request.GET)
+
+    request
 
     return {
+        "url_next": next,
         "site_config": {
             "title": "IBM - Igreja Batista Missionária"
         },

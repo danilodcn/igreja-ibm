@@ -3,9 +3,9 @@ from django import forms
 from igreja.apps.account.models import CustomUser
 
 
-class CustomUserForm(forms.Form):
+class CustomUserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100, label="Nome",)
-    first_name = forms.CharField(max_length=100, label="Sobre nome",)
+    last_name = forms.CharField(max_length=100, label="Sobre nome",)
     email = forms.EmailField(max_length=100, label="Email",)
     password_1 = forms.CharField(max_length=100, label="Senha",)
     password_2 = forms.CharField(max_length=100, label="Confirmação de senha",)
@@ -21,4 +21,19 @@ class CustomUserForm(forms.Form):
         email_cleaned = self.cleaned_data.get('email')
         if CustomUser.objects.filter(email__iexact=email_cleaned).exists():
             raise forms.ValidationError("Uma conta com essa senha já existe!")
+        return email_cleaned
+    
+    class Meta:
+        model = CustomUser
+        fields = ["first_name", "last_name", "email", "password_1", "password_2"]
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(max_length=100, label="Email",)
+    password = forms.CharField(max_length=100, label="Senha",)
+
+    def clean_email(self):
+        email_cleaned = self.cleaned_data.get('email')
+        if not CustomUser.objects.filter(email__iexact=email_cleaned).exists():
+            raise forms.ValidationError("Email não existe na nossa base de dados")
         return email_cleaned

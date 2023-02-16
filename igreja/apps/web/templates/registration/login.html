@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block main %}
+
+<div class="container-fluid">
+
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-4 col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center">
+  
+            <div class="d-flex justify-content-center py-4">
+              <a href="/" class="logo d-flex align-items-center w-auto">
+                <img src="{% static 'web/img/logo.png' %}" alt="">
+                <span class="d-none d-sm-block">IBM</span>
+              </a>
+            </div><!-- End Logo -->
+  
+            <div class="card mb-3">
+  
+              <div class="card-body">
+  
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Entre em sua conta</h5>
+                  <p class="text-center small">Use email e senha para entrar em sua conta</p>
+                </div>
+  
+                <form class="row g-3 needs-validation" novalidate method="POST">
+                  {% csrf_token %}
+
+                  <div class="col-12">
+                    <label for="{{ form.email.auto_id }}" class="form-label">Seu email</label>
+                    <input type="email" name="{{ form.email.name }}" class="form-control" id="{{ form.email.auto_id }}" required>
+                    <div class="invalid-feedback">Por favor, insira um email válido!</div>
+                  </div>
+  
+                  <div class="col-12">
+                    <label for="{{ form.password.auto_id }}" class="form-label">Senha</label>
+                    <input type="password" name="{{ form.password.name }}" class="form-control" id="{{ form.password.auto_id }}" required>
+                    <div class="invalid-feedback">Insira sua senha!</div>
+                  </div>
+  
+                  <div class="col-12 mt-4 mb-2">
+                    <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                  </div>
+                  <div class="col-12">
+                    <p class="small mb-0">Já possui conta? <a href="{% url 'create_account' %}?{{ request.query_string }}">Entre clicando aqui</a></p>
+                  </div>
+                </form>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </section>
+  
+  </div>
+
+{% endblock main %}

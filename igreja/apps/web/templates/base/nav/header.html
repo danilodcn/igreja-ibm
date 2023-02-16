@@ -124,7 +124,7 @@
           aria-expanded="false"
         >
           <img src="staticfiles/web/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block dropdown-toggle ps-2">
+          <span class="d-none d-md-block dropdown-toggle ps-2 pl-2">
             {{ request.user.full_name|default:'Sem Nome' }}
           </span>
         </a><!-- End Profile Iamge Icon -->
@@ -134,6 +134,20 @@
             <h6>{{ request.user.full_name|default:'Sem Nome' }}</h6>
             <span>{{ request.user.profile.occupation|default:'' }}</span>
           </li>
+
+          {% if request.user.is_staff %}
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="/admin/">
+              <i class="bi bi-sliders"></i>
+              <span>Admin</span>
+            </a>
+          </li>
+          {% endif %}
+
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -141,7 +155,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
               <i class="bi bi-person"></i>
-              <span>My Profile</span>
+              <span>Meu perfil</span>
             </a>
           </li>
           <li>
@@ -151,7 +165,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
               <i class="bi bi-gear"></i>
-              <span>Account Settings</span>
+              <span>Configurações de conta</span>
             </a>
           </li>
           <li>
@@ -161,7 +175,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
               <i class="bi bi-question-circle"></i>
-              <span>Need Help?</span>
+              <span>Precisa de ajuda?</span>
             </a>
           </li>
           <li>
@@ -169,7 +183,7 @@
           </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}?{{ request.query_string }}">
               <i class="bi bi-box-arrow-right"></i>
               <span>Sair</span>
             </a>
@@ -194,14 +208,14 @@
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="/accounts/create">
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'create_account' %}?{{ request.query_string }}">
               <i class="bi bi-person-add"></i>
-              <span>Criar conta</span>
+              <span>Criar conta {{ request.params }}</span>
             </a>
           </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="/accounts/loggin">
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'login' %}?{{ request.query_string }}">
               <i class="bi bi-box-arrow-in-left"></i>
               <span>Entrar</span>
             </a>
