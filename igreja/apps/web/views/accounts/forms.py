@@ -20,7 +20,7 @@ class CustomUserForm(forms.ModelForm):
     def clean_email(self):
         email_cleaned = self.cleaned_data.get('email')
         if CustomUser.objects.filter(email__iexact=email_cleaned).exists():
-            raise forms.ValidationError("Uma conta com essa senha já existe!")
+            raise forms.ValidationError("Já existe uma conta com esse email!")
         return email_cleaned
     
     class Meta:
