@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from decouple import Csv, config
@@ -31,9 +32,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
+    "ckeditor_uploader",
+    "import_export",
     "igreja.apps.core",
     "igreja.apps.account",
     "igreja.apps.web",
+    "igreja.apps.church",
 ]
 
 MIDDLEWARE = [
@@ -163,6 +168,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles/statics/"
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

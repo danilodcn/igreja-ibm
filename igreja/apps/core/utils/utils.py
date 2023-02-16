@@ -1,3 +1,5 @@
+import secrets
+from os.path import splitext
 from typing import Any, List, Tuple
 from urllib.parse import urljoin
 
@@ -6,7 +8,9 @@ from django.urls import reverse
 
 
 def get_filename(filename: str) -> str:
-    return filename.lower()
+    hash = secrets.token_urlsafe(8)
+    name, ext = splitext(filename.lower())
+    return f"{name}-{hash}{ext}"
 
 
 def get_admin_url(obj):
@@ -17,7 +21,7 @@ def get_admin_url(obj):
 
 
 def get_field_display(
-    choices: List[Tuple[int | str], Any],
+    choices: Tuple[List[int | str], Any],
     value: int | str,
     raise_exception=False,
 ):

@@ -24,6 +24,9 @@ psycopg2 = "^2.9.5"
 dj-database-url = "^1.2.0"
 python-decouple = "^3.7"
 newrelic = "^8.6.0"
+django-ckeditor = "^6.5.1"
+django-ordered-model = "^3.6"
+django-import-export = "^3.0.2"
 
 
 [tool.poetry.group.dev.dependencies]
