@@ -238,7 +238,12 @@ class Profile(models.Model):
         blank=True,
         null=True,
     )
-    image = models.ImageField("Foto do Perfil", null=True, blank=True)
+    image = models.ImageField(
+        "Foto do Perfil",
+        null=True,
+        blank=True,
+        upload_to="accounts/profiles",
+    )
     biography = models.TextField("Biografia", null=True, blank=True)
     address = models.OneToOneField(
         Address,

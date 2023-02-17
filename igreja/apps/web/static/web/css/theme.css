@@ -3,4 +3,14 @@
   --main-200-primary-color: rgb(21, 61, 30);
   --bs-primary-rgb: 38, 112, 55;
   --bs-primary: rgb(--bs-primary-rgb);
+  --component-active-color: var(--bs-primary);
+
+
+}
+.btn-primary {
+  --bs-btn-bg: var(--main-primary-color);
+}
+
+.form-check-input:checked {
+  background-color: var(--main-primary-color);
 }

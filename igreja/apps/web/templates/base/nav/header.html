@@ -123,7 +123,11 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img src="{% static 'web/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
+          {% if request.user.profile.image %}
+          <img src="/media/{{ request.user.profile.image }}" alt="Profile" class="rounded-circle">
+          {% else %}
+          <img src="{% static 'web/img/default-user.png' %}" alt="Profile" class="rounded-circle">
+          {% endif %}
           <span class="d-none d-md-block dropdown-toggle ps-2 pl-2">
             {{ request.user.full_name|default:'Sem Nome' }}
           </span>

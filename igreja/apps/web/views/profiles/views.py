@@ -8,4 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest) -> HttpResponse:
-        return render(request, "web/pages/profile.html")
+
+        ctx = {
+            "user": request.user
+        }
+
+        return render(request, "web/pages/profile.html", context=ctx)
