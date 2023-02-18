@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <div class="container-main">
+  <div class="container-main min-vh-100">
   {% include 'base/nav/header.html' %}
 
   {% block sidebar %}
@@ -46,7 +46,7 @@
   {% endblock sidebar %}
 
   
-  <main id="main" class="main">
+  <main id="main" class="main min-vh-100">
     {% include 'base/messages.html' %}
 
     {% block main %}
@@ -69,6 +69,45 @@
 
   {% block scripts %}{% endblock scripts %}
 </div>
+
+<div class="modal fade" id="id-main-loading" role="dialog">
+  <div
+    class="modal-dialog min-vh-80 d-flex align-items-center justify-content-center"
+    style="height: 90%;"
+  >
+    <div class="spinner-border text-primary" id="spinner" role="status" />
+  </div>
+</div>
+
+<script>
+  class Loading {
+    constructor() {
+      this.el = $("#id-main-loading")
+    }
+
+    configure(persistent=false) {
+      if (persistent) {
+        this.el.on('hide.bs.modal', function () { });
+      }
+      else {
+        this.el.on('hide.bs.modal', this.hide);
+      }
+    }
+
+    toggle() {
+      this.el.modal("toggle")
+    }
+    
+    show() {
+      this.el.modal("show")
+    }
+
+    hide() {
+      this.el.modal("hide")
+    }
+  }
+  const useLoading = new Loading()
+</script>
 </body>
 
 </html>

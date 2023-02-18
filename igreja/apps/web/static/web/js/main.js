@@ -327,3 +327,78 @@
   }
 
 })();
+
+
+function stringToObject(url, separator="&", separatorKey="=") {
+  let data = {}
+  for (keyValuePair of url.split(separator)) {
+    let [key, value] = keyValuePair.split(separatorKey)
+    let newValue = value || ""
+    data[key] = newValue
+  }
+  return data
+}
+
+var csrfcookie = function() {
+  const cookieName = 'csrftoken';
+  if (document.cookie && document.cookie !== '') {
+      const cookies = stringToObject(document.cookie, ";")
+      for (let name in cookies) {
+        if (name.trim() == cookieName) {
+          return cookies[name].trim()
+        }
+      }
+  }
+  return "";
+};
+
+const createAxios = () => {
+
+}
+
+
+class HttpClient {
+  headers = {"X-CSRFToken": csrfcookie(), ContentType: "multipart/form-data"}
+
+  constructor() {
+    this.api = axios.create({})
+  }
+
+  getHeaders(headers=undefined) {
+    if (headers) {
+      return [...this.headers, ...config.headers];
+    }
+    return this.headers
+  }
+
+  request(url, config) {
+    var headers = this.getHeaders(config.headers)
+    return this.api({...config, url, headers})
+  }
+
+  get(url, config={}) {
+    return this.request(url, {...config, method: "get"})
+  }
+
+  post(url, config={}) {
+    return this.request(url, {...config, method: "post"})
+  }
+
+  put(url, config={}) {
+    return this.request(url, {...config, method: "put"})
+  }
+
+  patch(url, config={}) {
+    return this.request(url, {...config, method: "patch"})
+  }
+
+  options(url, config={}) {
+    return this.request(url, {...config, method: "options"})
+  }
+  
+  delete(url, config={}) {
+    return this.request(url, {...config, method: "delete"})
+  }
+}
+
+const httpClient = new HttpClient()

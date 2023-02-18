@@ -27,6 +27,8 @@ newrelic = "^8.6.0"
 django-ckeditor = "^6.5.1"
 django-ordered-model = "^3.6"
 django-import-export = "^3.0.2"
+django-crispy-forms = "^2.0"
+crispy-bootstrap5 = "^0.7"
 
 
 [tool.poetry.group.dev.dependencies]

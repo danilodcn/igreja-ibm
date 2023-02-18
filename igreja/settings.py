@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ckeditor",
     "ckeditor_uploader",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "import_export",
     "igreja.apps.core",
     "igreja.apps.account",
@@ -52,7 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
+from django.middleware.csrf import CsrfViewMiddleware
 ROOT_URLCONF = "igreja.urls"
 
 TEMPLATES = [
@@ -217,3 +219,7 @@ CKEDITOR_CONFIGS = {
 
 # AWS_QUERYSTRING_EXPIRE = config("AWS_QUERYSTRING_EXPIRE", 24 * 60 * 60)
 # AWS_QUERYSTRING_AUTH = True
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = CRISPY_TEMPLATE_PACK

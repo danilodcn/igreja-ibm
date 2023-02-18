@@ -1,8 +1,10 @@
 {% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
 {% load static %}
 
 {% block title %}
-<title>Users / Profile - NiceAdmin Bootstrap Template</title>
+<title>Editar perfil: {{ request.user.full_name }}</title>
 {% endblock title %}
 
 
@@ -97,7 +99,7 @@
               {% if user.profile.occupation %}
 
               <div class="row">
-                <div class="col-lg-3 col-md-4 label">Trabalho</div>
+                <div class="col-lg-3 col-md-4 label">Profissão</div>
                 <div class="col-lg-9 col-md-8">{{ user.profile.occupation }}</div>
               </div>
 
@@ -111,17 +113,16 @@
 
               {% endif %}
 
-              
               {% if user.profile.phone_message_enabled %}
               <div class="row">
-                <div class="col-lg-3 col-md-4 label">
+                <div class="col-12 label">
                   <i class="bi bi-check-circle-fill"></i>
                   <label class="ps-2">Aceitou comunicação por celular</label>
                 </div>
               </div>
               {% else %}
               <div class="row">
-                <div class="col-lg-3 col-md-4 label text-danger">
+                <div class="col-12 label text-danger">
                   <i class="bi bi-exclamation-triangle-fill"></i>
                   <label class="ps-2">Aceitou comunicação por celular</label>
                 </div>
@@ -130,14 +131,14 @@
 
               {% if user.profile.email_message_enabled %}
               <div class="row">
-                <div class="col-lg-3 col-md-4 label">
+                <div class="col-12 label">
                   <i class="bi bi-check-circle-fill"></i>
                   <label class="ps-2">Aceitou comunicação por email</label>
                 </div>
               </div>
               {% else %}
               <div class="row">
-                <div class="col-lg-3 col-md-4 label text-danger">
+                <div class="col-12 label text-danger">
                   <i class="bi bi-exclamation-triangle-fill"></i>
                   <label class="ps-2">Aceitou comunicação por email</label>
                 </div>
@@ -149,7 +150,7 @@
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form>
+              <form class="horizontal-form">
                 <div class="row mb-3">
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagem do perfil</label>
                   <div class="col-md-8 col-lg-9 imageProfile">
@@ -158,7 +159,7 @@
                     {% else %}
                     <img src="{% static 'web/img/default-user.png' %}" alt="Profile" class="rounded-circle">
                     {% endif %}
-                    <input class="d-none" type="file" id="imageFile" name="imageFile" />
+                    
                     <div class="pt-2">
                       <a id="uploadImageBtn" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                       <a id="removeImageBtn" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
@@ -166,94 +167,15 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
-                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                  <div class="col-md-8 col-lg-9">
-                    <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="country" type="text" class="form-control" id="Country" value="USA">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
-                  </div>
-                </div>
-
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
               </form><!-- End Profile Edit Form -->
+
+              {% crispy form.user %}
+              {% crispy form.profile %}
+              {% crispy form.address %}
+
+              <div class="text-center">
+                <button id="save-profiles-forms" type="submit" class="btn btn-primary">Salvar mudanças</button>
+              </div>
 
             </div>
 
@@ -292,8 +214,8 @@
                   </div>
                 </div>
 
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                 </div>
               </form><!-- End settings Form -->
 
@@ -347,29 +269,57 @@
 
 <script>
   const defaultProfileImage = "{% static 'web/img/default-user.png' %}"
-  $(document).ready(()=>{
+  const csrftoken = '{{ csrf_token }}'
+
+  function changeImagesSource(src) {
     imageProfile = $(".imageProfile > img");
-    $("#imageFile").on("change", (e)=> {
-      console.log(e);
+    imageProfile.attr("src", src)
+  }
+
+  $(document).ready(()=>{
+    
+    $("input.imageFile").on("change", (e)=> {
       const files = e.target.files
       if (files && files.length) {
         var reader = new FileReader()
         reader.onload = (e) => {
-          imageProfile.attr("src", e.target.result)
+          changeImagesSource(e.target.result)
         }
         reader.readAsDataURL(files[0])
       }
     })
 
     $("#removeImageBtn").on("click", ()=> {
-      alert("lógica para remover a imagem aqui!");
+      changeImagesSource(defaultProfileImage)
     })
 
     $("#uploadImageBtn").on("click", () => {
-      $("#imageFile").click();
+      console.log();
+      $("#id_image").click();
     })
-
   })
+
+  $("#save-profiles-forms").on("click", () => {
+    onSubmit()
+  })
+
+  async function onSubmit() {
+    const formIDs = ["id-customuser-form", "id-profile-form", "id-address-form"]
+    const serializeds = []
+    for (formID of formIDs) {
+      let serialized = $(`#${formID}`).serialize()
+      serializeds.push(serialized)
+    }
+    const formData = serializeds.join("&")
+
+    useLoading.show()
+    await httpClient.post("", {data: formData}).then(res => {
+      console.log(res);
+    }).catch(error => {
+      console.log(error);
+    })
+    useLoading.hide()
+  }
 
 </script>
 

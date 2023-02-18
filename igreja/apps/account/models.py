@@ -218,16 +218,15 @@ class ContactMeans(models.Model):
 
 class Profile(models.Model):
     GENDER_CHOICES = (
-        (0, "Homem"),
-        (1, "Mulher"),
-        (2, "-"),
+        (0, "Masculino"),
+        (1, "Feminino"),
     )
 
     MARITAL_STATUS_CHOICES = (
-        ("single", "SOLTEIRO"),
-        ("married", "CASADO"),
-        ("widower", "VIUVO"),
-        ("divorced", "DIVORCIADO"),
+        ("single", "solteiro"),
+        ("married", "casado"),
+        ("widower", "viúvo"),
+        ("divorced", "divorciado"),
     )
 
     tracker = FieldTracker()
