@@ -1,34 +1,66 @@
 from django import forms
+from django.core import validators
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, HTML, Field
 from igreja.apps.account.models import Address, CustomUser, Profile
+
+
+def validate_email_user(email, user: CustomUser):
+    exist_another_user = CustomUser.objects.filter(
+        email__exact=email
+    ).exclude(
+        pk=user.pk
+    ).exists()
+    if exist_another_user:
+        raise forms.ValidationError("Existe outra conta com esse email")
+    return True
+
 
 
 class HorizontalFormMixin:
     form_id: str | None = None
-    def __init__(self, *args, **kwargs):
+
+    @property
+    def helper(self):
+        helper = FormHelper(self)
+
+        helper.form_tag = False
+        helper.disable_csrf = True
+        helper.form_class = "horizontal-form needs-validation form-horizontal"
+
+        helper.label_class = 'col-md-4 col-lg-3 col-form-label'
+        helper.field_class = 'col-md-8 col-lg-9 form-field'
+
+        helper.error_text_inline = True
+        helper.help_text_inline = True
+        helper.form_show_labels = True
+        return helper
+
+
+class CustomUserForm(HorizontalFormMixin, forms.Form): 
+    email = forms.CharField(required=True, validators=[validators.validate_email])
+    first_name = forms.CharField(required=True, label="Nome")
+    last_name = forms.CharField(required=True, label="SobreNome")
+
+    def __init__(self, *args, request=None, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_id = self.form_id or "id-{}-form".format(
-            self.instance.__class__.__name__.lower()
-        )
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-4 col-lg-3 col-form-label'
-        self.helper.field_class = 'col-md-8 col-lg-9'
+        self.request = request
+
+    def clean_email(self):
+        email_cleaned = self.cleaned_data.get('email')
+        if self.request and isinstance(self.request.user, CustomUser):
+            validate_email_user(email_cleaned, self.request.user)
+
+        return email_cleaned
 
 
-class CustomUserForm(HorizontalFormMixin, forms.ModelForm): 
-
+class CustomUserModelForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ["email", "first_name", "last_name"]
-        labels = {
-            "email": "Email",
-            "first_name": "Nome",
-            "last_name": "Sobrenome"
-        }
 
 
-class ProfileForm(HorizontalFormMixin, forms.ModelForm):
+class ProfileModelForm(HorizontalFormMixin, forms.ModelForm):
 
     class Meta:
         model = Profile
@@ -39,13 +71,9 @@ class ProfileForm(HorizontalFormMixin, forms.ModelForm):
             "biography": "Sobre",
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        image_field = self.fields["image"]
 
-
-class AddressForm(HorizontalFormMixin, forms.ModelForm):
+class AddressModelForm(HorizontalFormMixin, forms.ModelForm):
 
     class Meta:
         model = Address
-        fields = ('country', 'state', "city", "zipcode", "street")
+        fields = ('country', 'state', "city", "zipcode", "street", "number")
