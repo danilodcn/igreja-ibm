@@ -1,13 +1,20 @@
 from typing import Any
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect, resolve_url
-from igreja.apps.account.models import CustomUser
-from django.views import View
-from .forms import AddressModelForm, CustomUserForm, CustomUserModelForm, ProfileModelForm
-from django.contrib import messages
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render, resolve_url
+from django.views import View
+
+from igreja.apps.account.models import CustomUser
+
 from ..base_views import FormBaseView
+from .forms import (
+    AddressModelForm,
+    CustomUserForm,
+    CustomUserModelForm,
+    ProfileModelForm,
+)
 
 
 class ProfileView(FormBaseView):

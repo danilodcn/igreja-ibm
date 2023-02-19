@@ -4,8 +4,6 @@ from ordered_model.models import OrderedModel
 
 from igreja.apps.account.models import Address, CustomUser
 
-    
-
 
 class MemberType(OrderedModel):
     name = models.CharField("Nome", max_length=100, null=True, blank=True)

@@ -1,5 +1,7 @@
 from urllib.parse import urlencode
+
 from django.utils.deprecation import MiddlewareMixin
+
 from igreja.apps.core.utils.redirect import get_redirect
 
 

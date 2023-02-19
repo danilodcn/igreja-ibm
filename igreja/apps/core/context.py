@@ -1,5 +1,7 @@
 from igreja.apps.core.types.pages import Breadcrumb, PageLink
+
 from .utils.redirect import get_redirect
+
 
 def web_context(request):
     breadcrumb = Breadcrumb(

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import include, path
 
 from igreja.apps.web.views import home
 from igreja.apps.web.views.accounts import accounts

@@ -1,14 +1,12 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
 
 from igreja.apps.account.models import CustomUser
-
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-
-from igreja.apps.web.views.accounts.forms import CustomUserForm,  LoginForm
 from igreja.apps.core.utils.redirect import get_redirect
+from igreja.apps.web.views.accounts.forms import CustomUserForm, LoginForm
 
 from ..base_views import FormBaseView
 

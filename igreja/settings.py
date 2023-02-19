@@ -55,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 from django.middleware.csrf import CsrfViewMiddleware
+
 ROOT_URLCONF = "igreja.urls"
 
 TEMPLATES = [

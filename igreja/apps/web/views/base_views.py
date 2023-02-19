@@ -1,8 +1,6 @@
-from django.views.generic.edit import FormView
-
-from django.http import HttpResponse
-
 from django.contrib import messages
+from django.http import HttpResponse
+from django.views.generic.edit import FormView
 
 from igreja.apps.core.utils.redirect import get_redirect
 

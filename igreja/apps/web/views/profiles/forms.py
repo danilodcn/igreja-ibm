@@ -1,7 +1,8 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Div, Field, Layout
 from django import forms
 from django.core import validators
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, HTML, Field
+
 from igreja.apps.account.models import Address, CustomUser, Profile
 
 
@@ -14,7 +15,6 @@ def validate_email_user(email, user: CustomUser):
     if exist_another_user:
         raise forms.ValidationError("Existe outra conta com esse email")
     return True
-
 
 
 class HorizontalFormMixin:
