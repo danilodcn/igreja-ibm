@@ -69,7 +69,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "igreja.apps.core.context.web_context"
+                "igreja.apps.core.context.web_context",
             ],
         },
     },
@@ -77,11 +77,11 @@ TEMPLATES = [
 
 
 MESSAGE_TAGS = {
-    message_constants.DEBUG: 'debug',
-    message_constants.INFO: 'info',
-    message_constants.SUCCESS: 'success',
-    message_constants.WARNING: 'warning',
-    message_constants.ERROR: 'danger',
+    message_constants.DEBUG: "debug",
+    message_constants.INFO: "info",
+    message_constants.SUCCESS: "success",
+    message_constants.WARNING: "warning",
+    message_constants.ERROR: "danger",
 }
 
 WSGI_APPLICATION = "igreja.wsgi.application"
@@ -172,8 +172,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -183,6 +183,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_FILENAME_GENERATOR = "igreja.apps.core.utils.utils.get_filename"
+
 CKEDITOR_CONFIGS = {
     "default": {
         # "toolbar": "Custom",

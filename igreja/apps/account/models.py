@@ -1,11 +1,18 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from model_utils import FieldTracker
 
 from igreja.apps.account.managers import CustomUserManager
 
 from .enum import ContactMeanTypesChoices, UserInteractionCategoriesChoices
+
+
+def get_profile_image_upload_to(model, name: str):
+    now = timezone.now()
+    date = now.strftime("%d/%m/%Y")
+    return f"accounts/profile/{model.pk}/{date}/{name}"
 
 
 class CustomUser(AbstractUser):
@@ -238,12 +245,15 @@ class Profile(models.Model):
         null=True,
     )
     image = models.ImageField(
-        "Foto do Perfil",
+        "Perfil",
+        help_text="imagem usada como perfil da conta",
         null=True,
         blank=True,
-        upload_to="accounts/profiles",
+        upload_to=get_profile_image_upload_to,
     )
-    biography = models.TextField("Biografia", null=True, blank=True)
+    about = models.TextField(
+        "Sobre", help_text="breve descrição do usuário", null=True, blank=True
+    )
     address = models.OneToOneField(
         Address,
         models.CASCADE,
@@ -291,6 +301,7 @@ class Profile(models.Model):
     occupation = models.CharField(
         max_length=100,
         verbose_name="Profissão",
+        help_text="A sua profissão atual",
         blank=True,
         null=True,
     )

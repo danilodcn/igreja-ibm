@@ -7,11 +7,11 @@ from igreja.apps.account.models import Address, CustomUser, Profile
 
 
 def validate_email_user(email, user: CustomUser):
-    exist_another_user = CustomUser.objects.filter(
-        email__exact=email
-    ).exclude(
-        pk=user.pk
-    ).exists()
+    exist_another_user = (
+        CustomUser.objects.filter(email__exact=email)
+        .exclude(pk=user.pk)
+        .exists()
+    )
     if exist_another_user:
         raise forms.ValidationError("Existe outra conta com esse email")
     return True
@@ -28,8 +28,8 @@ class HorizontalFormMixin:
         helper.disable_csrf = True
         helper.form_class = "horizontal-form needs-validation form-horizontal"
 
-        helper.label_class = 'col-md-4 col-lg-3 col-form-label'
-        helper.field_class = 'col-md-8 col-lg-9 form-field'
+        helper.label_class = "col-md-4 col-lg-3 col-form-label"
+        helper.field_class = "col-md-8 col-lg-9 form-field"
 
         helper.error_text_inline = True
         helper.help_text_inline = True
@@ -37,17 +37,19 @@ class HorizontalFormMixin:
         return helper
 
 
-class CustomUserForm(HorizontalFormMixin, forms.Form): 
-    email = forms.CharField(required=True, validators=[validators.validate_email])
+class CustomUserForm(HorizontalFormMixin, forms.Form):
+    email = forms.CharField(
+        required=True, validators=[validators.validate_email]
+    )
     first_name = forms.CharField(required=True, label="Nome")
-    last_name = forms.CharField(required=True, label="SobreNome")
+    last_name = forms.CharField(required=True, label="Sobrenome")
 
     def __init__(self, *args, request=None, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.request = request
 
     def clean_email(self):
-        email_cleaned = self.cleaned_data.get('email')
+        email_cleaned = self.cleaned_data.get("email")
         if self.request and isinstance(self.request.user, CustomUser):
             validate_email_user(email_cleaned, self.request.user)
 
@@ -61,19 +63,31 @@ class CustomUserModelForm(forms.ModelForm):
 
 
 class ProfileModelForm(HorizontalFormMixin, forms.ModelForm):
-
     class Meta:
         model = Profile
         fields = (
-            'image', "biography", "gender", "cpf", "rg", "phone", "occupation", "marital_status")
-        labels = {
-            "image": "Perfil",
-            "biography": "Sobre",
-        }
+            "image",
+            "about",
+            "gender",
+            "cpf",
+            "rg",
+            "phone",
+            "birth_date",
+            "occupation",
+            "marital_status",
+        )
 
 
 class AddressModelForm(HorizontalFormMixin, forms.ModelForm):
-
     class Meta:
         model = Address
-        fields = ('country', 'state', "city", "zipcode", "street", "number")
+        fields = (
+            "country",
+            "state",
+            "city",
+            "zipcode",
+            "street",
+            "neighborhood",
+            "number",
+            "complement",
+        )
