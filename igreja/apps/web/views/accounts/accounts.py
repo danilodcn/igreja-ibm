@@ -30,10 +30,9 @@ class CreateUserView(AccountFormBaseView):
             email=email,
             password=password,
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
         )
         return super().form_valid(form)
-    
 
 
 class AccountLoginView(AccountFormBaseView):
@@ -42,15 +41,15 @@ class AccountLoginView(AccountFormBaseView):
     form_class = LoginForm
 
     def form_valid(self, form) -> HttpResponse:
-        email = self.request.POST['email']
-        password = self.request.POST['password']
+        email = self.request.POST["email"]
+        password = self.request.POST["password"]
         user = authenticate(self.request, email=email, password=password)
         if user is not None:
             login(self.request, user)
         return super().form_valid(form)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url="/accounts/login/")
 def user_logout(request: HttpRequest):
     logout(request)
     url = get_redirect(request.GET)

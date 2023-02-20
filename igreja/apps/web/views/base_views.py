@@ -11,7 +11,7 @@ class FormBaseView(FormView):
             for msg in errors:
                 messages.error(self.request, msg)
         return super().form_invalid(form)
-    
+
     def get_success_url(self) -> str:
         url = get_redirect(self.request.GET)
         if url:

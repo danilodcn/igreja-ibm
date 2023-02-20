@@ -28,8 +28,6 @@ class MemberType(OrderedModel):
     def __str__(self) -> str:
         return self.name or " - "
 
-    
-
 
 class ChurchMinistry(OrderedModel):
     name = models.CharField("Nome", max_length=100, null=True, blank=True)

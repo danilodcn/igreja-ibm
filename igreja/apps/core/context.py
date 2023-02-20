@@ -8,21 +8,19 @@ def web_context(request):
         title="Dashboard",
         href="/meu",
         links=[
-                PageLink(href="/", title="home"),
-                PageLink(title="dashboard"),
-            ]
-        )
-    
+            PageLink(href="/", title="home"),
+            PageLink(title="dashboard"),
+        ],
+    )
+
     next = get_redirect(request.GET)
 
     request
 
     return {
         "url_next": next,
-        "site_config": {
-            "title": "IBM - Igreja Batista Missionária"
-        },
+        "site_config": {"title": "IBM - Igreja Batista Missionária"},
         "page_config": {
             "breadcrumb": breadcrumb,
-        }
+        },
     }
