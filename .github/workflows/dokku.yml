@@ -2,9 +2,9 @@ name: Dokku CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   DOKKU_HOST: 34.196.25.75
