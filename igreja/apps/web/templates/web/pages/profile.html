@@ -223,7 +223,6 @@
 
               <!-- Settings Form -->
               <form method="POST" id="id-notification-form">
-                {% csrf_token %}
 
                 <div class="row">
                   <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Notificações</label>
@@ -320,42 +319,16 @@
 
     $("#id-notification-form").submit((e) => {
       try {
-        saveNotifications()
+        formAjax(
+          "#id-notification-form input",
+          "#id-div-notification-form",
+          "{% url 'accounts_save_notifications' %}"
+        )
       } catch (error) {
         console.log(error);
       }
-        return false
-      })
-
-    function saveNotifications() {
-      const formIds = [
-          "id_new_posts_alerts", "id_new_products_alerts", "id_new_events_alerts", "id_security_alerts",
-        ]
-        const new_ids = []
-        
-        for (let id of formIds) {
-          let name = `#${id}`
-          let input = $(name)
-          let value = document.querySelector(name).checked
-          new_ids.push(`${input.attr("name")}=${value}`)
-        }
-        
-        const data = new_ids.join("&")
-        
-        httpClient.post("{% url 'accounts_save_notifications' %}", { data }).then(response => {
-          const formHtml = response?.data?.form
-          return formHtml
-        }).catch(({response}) => {
-          if (response.status >= 400) {
-            const formHtml = response?.data?.form
-            return formHtml
-          }
-        }).then(form =>  {
-          if (form) {
-              $("#id-div-notification-form").html(form)
-            }
-        })
-    }
+      return false
+    })
   })
 </script>
 

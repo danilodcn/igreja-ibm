@@ -96,6 +96,7 @@ class SaveNotificationsSettings(LoginRequiredMixin, View):
     def post(self, request: HttpRequest) -> HttpResponse:
         form = NotificationsAlertsModelForm(request.POST)
         status = 200
+        import ipdb; ipdb.set_trace()
 
         if form.is_valid():
             form = NotificationsAlertsModelForm(

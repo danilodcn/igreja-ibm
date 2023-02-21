@@ -356,7 +356,6 @@ const createAxios = () => {
 
 }
 
-
 class HttpClient {
   headers = {"X-CSRFToken": csrfcookie(), ContentType: "multipart/form-data"}
 
@@ -399,6 +398,36 @@ class HttpClient {
   delete(url, config={}) {
     return this.request(url, {...config, method: "delete"})
   }
+}
+
+
+function formAjax(formSelector, divSelector, url) {
+  if (!divSelector) {
+    divSelector = formSelector
+  }
+
+  const newIDs = []
+  document.querySelectorAll(formSelector).forEach(item => {
+    let input = $(item)
+    let value = item.checked
+    newIDs.push(`${input.attr("name")}=${value}`)
+  })
+
+  const data = newIDs.join("&")
+  
+  httpClient.post(url, { data }).then(response => {
+    const formHtml = response?.data?.form
+    return formHtml
+  }).catch(({response}) => {
+    if (response.status >= 400) {
+      const formHtml = response?.data?.form
+      return formHtml
+    }
+  }).then(form =>  {
+    if (form) {
+        $(divSelector).html(form)
+      }
+  })
 }
 
 const httpClient = new HttpClient()
