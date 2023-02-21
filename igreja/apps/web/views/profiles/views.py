@@ -1,8 +1,10 @@
+from copy import deepcopy
 from typing import Any
 
+from crispy_forms.utils import render_crispy_form
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, resolve_url
 from django.views import View
 
@@ -13,11 +15,12 @@ from .forms import (
     AddressModelForm,
     CustomUserForm,
     CustomUserModelForm,
+    NotificationsAlertsModelForm,
     ProfileModelForm,
 )
 
 
-class ProfileView(FormBaseView):
+class ProfileView(LoginRequiredMixin, FormBaseView):
     template_name = "web/pages/profile.html"
 
     def get_form_class(self):
@@ -37,6 +40,9 @@ class ProfileView(FormBaseView):
             ),
             "profile": ProfileModelForm(instance=user.profile),
             "address": AddressModelForm(instance=user.profile.address),
+            "notifications": NotificationsAlertsModelForm(
+                instance=user.profile
+            ),
         }
         return super().get_context_data(**kwargs)
 
@@ -52,9 +58,14 @@ class ProfileView(FormBaseView):
             "profile": profile_form,
             "address": address_form,
         }
+
         is_valid = [form.is_valid() for form in forms.values()]
+
         if not all(is_valid):
             ctx = {"form": forms}
+            ctx["form"]["notifications"] = NotificationsAlertsModelForm(
+                instance=request.user.profile
+            )
             messages.error(
                 request, "parece que houve um erro ao salvar os dados"
             )
@@ -81,26 +92,23 @@ class ProfileView(FormBaseView):
         return redirect(resolve_url("accounts_profile"))
 
 
-class ProfileView2(LoginRequiredMixin, View):
-    def get(self, request: HttpRequest) -> HttpResponse:
-        ctx = {
-            "user": request.user,
-            "form": {
-                "user": CustomUserForm(instance=request.user),
-                "profile": ProfileModelForm(instance=request.user.profile),
-                "address": AddressModelForm(
-                    instance=request.user.profile.address
-                ),
-            },
-        }
-        messages.error(request, "houve um erro")
-        messages.error(request, "houve outro um erro")
-        return render(request, "web/pages/profile.html", context=ctx)
-
+class SaveNotificationsSettings(LoginRequiredMixin, View):
     def post(self, request: HttpRequest) -> HttpResponse:
-        request.POST
-        import ipdb
+        form = NotificationsAlertsModelForm(request.POST)
+        status = 200
 
-        ipdb.set_trace()
-        messages.error(request, "houve um erro")
-        return HttpResponse()
+        if form.is_valid():
+            form = NotificationsAlertsModelForm(
+                request.POST, instance=request.user.profile
+            )
+            form.save()
+            success = True
+        else:
+            status = 406
+            success = False
+
+        form_rendered = render_crispy_form(form, context={})
+        return JsonResponse(
+            {"success": success, "errors": form.errors, "form": form_rendered},
+            status=status,
+        )

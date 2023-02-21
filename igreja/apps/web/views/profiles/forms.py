@@ -18,8 +18,6 @@ def validate_email_user(email, user: CustomUser):
 
 
 class HorizontalFormMixin:
-    form_id: str | None = None
-
     @property
     def helper(self):
         helper = FormHelper(self)
@@ -30,6 +28,20 @@ class HorizontalFormMixin:
 
         helper.label_class = "col-md-4 col-lg-3 col-form-label"
         helper.field_class = "col-md-8 col-lg-9 form-field"
+
+        helper.error_text_inline = True
+        helper.help_text_inline = True
+        helper.form_show_labels = True
+        return helper
+
+
+class CheckFormMixin:
+    @property
+    def helper(self):
+        helper = FormHelper(self)
+
+        helper.form_tag = False
+        helper.disable_csrf = True
 
         helper.error_text_inline = True
         helper.help_text_inline = True
@@ -91,3 +103,20 @@ class AddressModelForm(HorizontalFormMixin, forms.ModelForm):
             "number",
             "complement",
         )
+
+
+class NotificationsAlertsModelForm(CheckFormMixin, forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            "new_products_alerts",
+            "new_posts_alerts",
+            "new_events_alerts",
+            "security_alerts",
+        ]
+
+    def clean_security_alerts(self):
+        security_alerts_cleaned = self.cleaned_data.get("security_alerts")
+        if not security_alerts_cleaned:
+            raise forms.ValidationError("Esse campo é obrigatório")
+        return security_alerts_cleaned

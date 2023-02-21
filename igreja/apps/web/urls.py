@@ -18,4 +18,9 @@ urlpatterns = [
         profile_views.ProfileView.as_view(),
         name="accounts_profile",
     ),
+    path(
+        "accounts/profile/save-notifications",
+        profile_views.SaveNotificationsSettings.as_view(),
+        name="accounts_save_notifications",
+    ),
 ]

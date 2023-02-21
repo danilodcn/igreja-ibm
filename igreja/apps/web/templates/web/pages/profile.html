@@ -152,6 +152,7 @@
               <!-- Profile Edit Form -->
               <form enctype="multipart/form-data" class="horizontal-form need-validation" novalidate method="POST">
                 {% csrf_token %}
+                <input type="hidden" name="form-type" value="profile">
                 <div class="row mb-3">
                   <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagem do perfil</label>
                   <div class="col-md-8 col-lg-9 imageProfile">
@@ -221,35 +222,13 @@
             <div class="tab-pane fade pt-3" id="profile-settings">
 
               <!-- Settings Form -->
-              <form>
+              <form method="POST" id="id-notification-form">
+                {% csrf_token %}
 
-                <div class="row mb-3">
-                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                  <div class="col-md-8 col-lg-9">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                      <label class="form-check-label" for="changesMade">
-                        Changes made to your account
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                      <label class="form-check-label" for="newProducts">
-                        Information on new products and services
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="proOffers">
-                      <label class="form-check-label" for="proOffers">
-                        Marketing and promo offers
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                      <label class="form-check-label" for="securityNotify">
-                        Security alerts
-                      </label>
-                    </div>
+                <div class="row">
+                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Notificações</label>
+                  <div class="col-md-8 col-lg-9" id="id-div-notification-form">
+                    {% crispy form.notifications %}
                   </div>
                 </div>
 
@@ -337,6 +316,46 @@
     })
 
     $("#div_id_image").hide()
+
+
+    $("#id-notification-form").submit((e) => {
+      try {
+        saveNotifications()
+      } catch (error) {
+        console.log(error);
+      }
+        return false
+      })
+
+    function saveNotifications() {
+      const formIds = [
+          "id_new_posts_alerts", "id_new_products_alerts", "id_new_events_alerts", "id_security_alerts",
+        ]
+        const new_ids = []
+        
+        for (let id of formIds) {
+          let name = `#${id}`
+          let input = $(name)
+          let value = document.querySelector(name).checked
+          new_ids.push(`${input.attr("name")}=${value}`)
+        }
+        
+        const data = new_ids.join("&")
+        
+        httpClient.post("{% url 'accounts_save_notifications' %}", { data }).then(response => {
+          const formHtml = response?.data?.form
+          return formHtml
+        }).catch(({response}) => {
+          if (response.status >= 400) {
+            const formHtml = response?.data?.form
+            return formHtml
+          }
+        }).then(form =>  {
+          if (form) {
+              $("#id-div-notification-form").html(form)
+            }
+        })
+    }
   })
 </script>
 

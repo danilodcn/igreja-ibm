@@ -336,6 +336,27 @@ class Profile(models.Model):
         verbose_name="Aceitar comunicação de celular",
         default=False,
     )
+
+    security_alerts = models.BooleanField(
+        verbose_name="Alertas de segurança",
+        default=True,
+    )
+
+    new_products_alerts = models.BooleanField(
+        verbose_name="informações sobre novos produtos e serviços",
+        default=True,
+    )
+
+    new_posts_alerts = models.BooleanField(
+        verbose_name="informações sobre novos posts do blog",
+        default=True,
+    )
+
+    new_events_alerts = models.BooleanField(
+        verbose_name="informações sobre novos eventos",
+        default=True,
+    )
+
     is_main_contact = models.BooleanField(
         verbose_name="É o contato principal",
         default=False,
