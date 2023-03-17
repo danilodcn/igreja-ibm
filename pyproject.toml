@@ -29,6 +29,7 @@ django-ordered-model = "^3.6"
 django-import-export = "^3.0.2"
 django-crispy-forms = "^2.0"
 crispy-bootstrap5 = "^0.7"
+taskipy = "^1.10.3"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -36,6 +37,10 @@ ipdb = "^0.13.11"
 black = "^23.1.0"
 isort = "^5.12.0"
 flake8 = "^6.0.0"
+pytest = "^7.2.2"
+pytest-cov = "^4.0.0"
+pytest-django = "^4.5.2"
+rich = "^13.3.2"
 
 [tool.poetry.group.doc.dependencies]
 mkdocs = "^1.4.2"
@@ -54,3 +59,42 @@ django-model-utils = "^4.3.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest]
+DJANGO_SETTINGS_MODULE="igreja.settings"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = "--doctest-modules"
+python_files = "tests.py test_*.py *_tests.py"
+
+filterwarnings = [
+    "error",
+    'ignore:pkg_resources is deprecated as an API:DeprecationWarning',
+]
+
+[tool.coverage.run]
+omit = [
+    "tests.py",
+    "test_*.py", 
+    "*_tests.py",
+    "igreja/apps/*/migrations/*.py",
+    "igreja/scripts/*",
+    "igreja/asgi.py",
+    "igreja/settings.py",
+    "igreja/urls.py",
+    "igreja/wsgi.py",
+]
+
+[tool.taskipy.settings]
+use_vars = true
+
+[tool.taskipy.variables]
+run_command = "poetry run"
+
+[tool.taskipy.tasks]
+format = "isort . && black ."
+docs = " mkdocs serve -a 0.0.0.0:9000"
+lint = "black --check --diff . && isort --check --diff ."
+test = "pytest -s --cov=igreja -vv"
+post_test = "coverage html && rm .coverage"
