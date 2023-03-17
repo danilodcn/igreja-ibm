@@ -1,9 +1,9 @@
 """
-ASGI config for igreja project.
+configuração ASGI do projeto.
 
-It exposes the ASGI callable as a module-level variable named ``application``.
+Isso é exposto em uma variável ``application``.
 
-For more information on this file, see
+Para mais informações, veja:
 https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 

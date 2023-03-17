@@ -115,6 +115,8 @@ plugins:
       handlers:
         python:
           paths: [igreja]
+          options:
+            show_root_heading: true
 
   - minify:
       minify_html: true

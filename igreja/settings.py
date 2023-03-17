@@ -1,3 +1,12 @@
+'''
+Esse módulo é usado para criar configurações globais para toda a aplicação.
+
+Examples:
+    >>> from django.conf import settings
+    >>> settings.DEBUG
+    False
+'''
+
 import os
 from pathlib import Path
 
@@ -17,11 +26,17 @@ SECRET_KEY = config("SECRET_KEY")
 SITE_ABSOLUTE_URL = config("SITE_ABSOLUTE_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG: bool = config("DEBUG", default=True, cast=bool)
+"""
+Variável que define o ambiente usado no momento.
+"""
+
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS: list[str] = ["*"]
+"""
+Define quais são as URLs bases do site
+"""
 
 # Application definition
 
@@ -42,6 +57,11 @@ INSTALLED_APPS = [
     "igreja.apps.web",
     "igreja.apps.church",
 ]
+
+"""
+Todos as aplicações django ativas no projeto
+"""
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

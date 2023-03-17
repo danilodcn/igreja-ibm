@@ -1,16 +1,21 @@
 """
-WSGI config for igreja project.
+configuração WSGI para o projeto.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+Isso é exposto em uma variável ``application``.
 
-For more information on this file, see
+Para mais informações, veja:
 https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
 """
 
 import os
 
 from django.core.wsgi import get_wsgi_application
+from django.core.handlers.wsgi import WSGIHandler
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "igreja.settings")
 
-application = get_wsgi_application()
+application: WSGIHandler = get_wsgi_application()
+"""
+aplicação wsgi
+"""
