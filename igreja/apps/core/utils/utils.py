@@ -7,12 +7,6 @@ from django.conf import settings
 from django.urls import reverse
 
 
-module_level_variable2 = 98765
-"""
-The docstring may span multiple lines. The type may optionally be specified
-on the first line, separated by a colon.
-"""
-
 def get_filename(filename: str) -> str:
     """
     Cria um novo nome de aquivo aleatório usando um hash de 8 dígitos concatenado com o nome do arquivo.
