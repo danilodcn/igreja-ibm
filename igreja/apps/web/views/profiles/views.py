@@ -1,18 +1,17 @@
 from copy import deepcopy
 from typing import Any
 
-from crispy_forms.utils import render_crispy_form
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render, resolve_url
-from django.views import View
 
 from igreja.apps.account.models import CustomUser
-
-from ..base_views import FormBaseView
-from .forms import (
+from igreja.apps.web.views.base_views import AjaxView, FormBaseView
+from igreja.apps.web.views.profiles.forms import (
     AddressModelForm,
+    ChangePasswordForm,
     CustomUserForm,
     CustomUserModelForm,
     NotificationsAlertsModelForm,
@@ -30,10 +29,9 @@ class ProfileView(LoginRequiredMixin, FormBaseView):
         user: CustomUser = self.request.user
 
         kwargs["form"] = {
-            # "user": CustomUserForm(instance=self.request.user),
             "user": CustomUserForm(
                 initial={
-                    "email": user.email,
+                    "email": "user.email",
                     "first_name": user.first_name,
                     "last_name": user.last_name,
                 }
@@ -43,6 +41,7 @@ class ProfileView(LoginRequiredMixin, FormBaseView):
             "notifications": NotificationsAlertsModelForm(
                 instance=user.profile
             ),
+            "change_password": ChangePasswordForm(),
         }
         return super().get_context_data(**kwargs)
 
@@ -66,6 +65,7 @@ class ProfileView(LoginRequiredMixin, FormBaseView):
             ctx["form"]["notifications"] = NotificationsAlertsModelForm(
                 instance=request.user.profile
             )
+            ctx["change_password"] = ChangePasswordForm()
             messages.error(
                 request, "parece que houve um erro ao salvar os dados"
             )
@@ -92,24 +92,24 @@ class ProfileView(LoginRequiredMixin, FormBaseView):
         return redirect(resolve_url("accounts_profile"))
 
 
-class SaveNotificationsSettings(LoginRequiredMixin, View):
-    def post(self, request: HttpRequest) -> HttpResponse:
-        form = NotificationsAlertsModelForm(request.POST)
-        status = 200
-        import ipdb; ipdb.set_trace()
+class SaveNotificationsSettings(LoginRequiredMixin, AjaxView):
+    form_class = NotificationsAlertsModelForm
 
-        if form.is_valid():
-            form = NotificationsAlertsModelForm(
-                request.POST, instance=request.user.profile
-            )
-            form.save()
-            success = True
-        else:
-            status = 406
-            success = False
+    def get_object(self, *args, **kwargs):
+        return self.request.user.profile
 
-        form_rendered = render_crispy_form(form, context={})
-        return JsonResponse(
-            {"success": success, "errors": form.errors, "form": form_rendered},
-            status=status,
-        )
+
+class SavePassword(LoginRequiredMixin, AjaxView):
+    form_class = ChangePasswordForm
+
+    def form_valid(self):
+        form = self.get_form()
+        password = self.request.POST.get("password_1")
+
+        self.request.user.set_password(password)
+        logout(self.request)
+
+        return form
+
+    def get_form(self, *args, **kwargs):
+        return super().get_form(request=self.request)

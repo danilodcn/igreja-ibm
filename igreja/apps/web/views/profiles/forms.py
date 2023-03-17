@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Div, Field, Layout
 from django import forms
+from django.contrib.auth import authenticate
+from django.contrib.auth.password_validation import validate_password
 from django.core import validators
 
 from igreja.apps.account.models import Address, CustomUser, Profile
@@ -103,6 +104,70 @@ class AddressModelForm(HorizontalFormMixin, forms.ModelForm):
             "number",
             "complement",
         )
+
+
+class ChangePasswordForm(HorizontalFormMixin, forms.Form):
+    current = forms.CharField(
+        label="Senha atual",
+        max_length=100,
+        required=True,
+    )
+    password_1 = forms.CharField(
+        label="Nova senha",
+        max_length=100,
+        required=True,
+    )
+    password_2 = forms.CharField(
+        label="Confirmação de senha",
+        max_length=100,
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs) -> None:
+        request = kwargs.pop("request", None)
+        super().__init__(*args, **kwargs)
+        self.request = request
+
+    def clean_current(self):
+        current_cleaned = self.data.get("current")
+
+        if not self.request:
+            raise forms.ValidationError("Erro interno!")
+
+        user = authenticate(
+            self.request,
+            email=self.request.user.email,
+            password=current_cleaned,
+        )
+        if not user:
+            raise forms.ValidationError("Senha incorreta!")
+
+        return current_cleaned
+
+    def clean_password(
+        self,
+    ):
+        pass1 = self.data.get("password_1", None)
+        pass2 = self.data.get("password_2", None)
+        if pass1 and pass2 and pass1 != pass2:
+            raise forms.ValidationError("As senhas não são iguais")
+
+        if not self.request:
+            raise forms.ValidationError("Erro interno!")
+
+        validate_password(pass1, user=self.request.user)
+
+    def clean_password_1(self):
+        pass1 = self.data.get("password_1", None)
+        self.clean_password()
+
+        return pass1
+
+    def clean_password_2(self):
+        pass2 = self.data.get("password_2", None)
+        self.clean_password()
+
+        return pass2
 
 
 class NotificationsAlertsModelForm(CheckFormMixin, forms.ModelForm):

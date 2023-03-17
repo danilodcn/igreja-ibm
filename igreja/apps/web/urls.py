@@ -23,4 +23,9 @@ urlpatterns = [
         profile_views.SaveNotificationsSettings.as_view(),
         name="accounts_save_notifications",
     ),
+    path(
+        "accounts/profile/save-password",
+        profile_views.SavePassword.as_view(),
+        name="accounts_save_password",
+    ),
 ]

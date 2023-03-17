@@ -370,9 +370,9 @@ class HttpClient {
     return this.headers
   }
 
-  request(url, config) {
+  async request(url, config) {
     var headers = this.getHeaders(config.headers)
-    return this.api({...config, url, headers})
+    return await this.api({...config, url, headers})
   }
 
   get(url, config={}) {
@@ -400,34 +400,30 @@ class HttpClient {
   }
 }
 
-
-function formAjax(formSelector, divSelector, url) {
+async function formAjax(formSelector, divSelector, url, loading=false, callback= async () => {}) {
+  if (loading) {
+    useLoading.show()
+  }
   if (!divSelector) {
     divSelector = formSelector
   }
 
-  const newIDs = []
-  document.querySelectorAll(formSelector).forEach(item => {
-    let input = $(item)
-    let value = item.checked
-    newIDs.push(`${input.attr("name")}=${value}`)
-  })
-
-  const data = newIDs.join("&")
+  const data = $(formSelector).serialize()
   
-  httpClient.post(url, { data }).then(response => {
-    const formHtml = response?.data?.form
-    return formHtml
-  }).catch(({response}) => {
-    if (response.status >= 400) {
-      const formHtml = response?.data?.form
-      return formHtml
-    }
-  }).then(form =>  {
-    if (form) {
-        $(divSelector).html(form)
-      }
-  })
+  response = await  httpClient.post(url, { data }).catch(({response}) => response)
+  
+  const formHtml = response?.data?.form
+  if (formHtml) 
+    $(divSelector).html(formHtml)
+
+  if (loading) {
+    console.log("saindo ...")
+    setTimeout(() => {
+      console.log(new Date())
+      useLoading.hide()
+    }, 500);
+  }
+  await callback()
 }
 
 const httpClient = new HttpClient()
