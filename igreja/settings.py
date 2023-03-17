@@ -1,11 +1,11 @@
-'''
+"""
 Esse módulo é usado para criar configurações globais para toda a aplicação.
 
 Examples:
     >>> from django.conf import settings
     >>> settings.DEBUG
     False
-'''
+"""
 
 import os
 from pathlib import Path
