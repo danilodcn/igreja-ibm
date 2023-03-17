@@ -30,6 +30,10 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+
     def __str__(self) -> str:
         return self.get_full_name()
 

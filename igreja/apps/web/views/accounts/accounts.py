@@ -7,8 +7,7 @@ from django.shortcuts import redirect
 from igreja.apps.account.models import CustomUser
 from igreja.apps.core.utils.redirect import get_redirect
 from igreja.apps.web.views.accounts.forms import CustomUserForm, LoginForm
-
-from ..base_views import FormBaseView
+from igreja.apps.web.views.base_views import FormBaseView
 
 
 class AccountFormBaseView(FormBaseView):

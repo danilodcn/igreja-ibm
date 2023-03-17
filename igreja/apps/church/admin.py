@@ -10,17 +10,17 @@ class ContentForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorWidget(), label="Descrição")
 
 
-class MemberAminInline(admin.TabularInline):
+class MemberAdminInline(admin.TabularInline):
     extra = 0
     model = Member
-    autocomplete_fields = ["member", "member_type", "church"]
+    autocomplete_fields = ["member", "church"]
 
     model.__str__ = lambda _: ""
 
 
 class MemberTypeAdmin(ImportExportModelAdmin):
     form = ContentForm
-    inlines = [MemberAminInline]
+    inlines = [MemberAdminInline]
     search_fields = ["name", "code"]
 
 
@@ -57,7 +57,7 @@ class ChurchAdmin(ImportExportModelAdmin):
     ]
 
     inlines = [
-        MemberAminInline,
+        MemberAdminInline,
     ]
 
     @admin.display(description="Número de membros")
