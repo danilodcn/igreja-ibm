@@ -27,6 +27,16 @@ def get_filename(filename: str) -> str:
 
 
 def get_admin_url(obj):
+    """
+    Obtém a url do ambiente administrativo dado o objeto.
+    Examples:
+        >>> django_db = getfixture('django_db')
+        >>> from igreja.apps.account.models import CustomUser
+        >>> user = CustomUser.objects.all().first()
+        >>> url = get_admin_url(user)
+        >>> url
+        "/admin/"
+    """
     return reverse(
         "admin:%s_%s_change" % (obj._meta.app_label, obj._meta.model_name),
         args=[obj.id],
