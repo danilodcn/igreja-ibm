@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python with cache
       uses: actions/setup-python@v4
       with:
-        python-version: "{{ env.PYTHON_ENV }}"
+        python-version: "${{ env.PYTHON_ENV }}"
         cache: 'poetry'
 
     - name: install packages
