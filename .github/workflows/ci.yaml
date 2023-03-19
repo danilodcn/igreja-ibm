@@ -1,0 +1,33 @@
+name: Dokku CI
+
+on:
+  push:
+  pull_request:
+
+env:
+  PYTHON_ENV: "3.10"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install poetry
+      run: pipx install poetry
+    - name: Set up Python with cache
+      uses: actions/setup-python@v4
+      with:
+        python-version: "{{ env.PYTHON_ENV }}"
+        cache: 'poetry'
+
+    - name: install packages
+      run: poetry install
+
+    - name: Tests
+      run: |
+        poetry run task test
+
+    - name: Linting
+      run: |
+        poetry run task lint
+
