@@ -1,4 +1,4 @@
-name: Dokku CI
+name: CI
 
 on:
   push:
