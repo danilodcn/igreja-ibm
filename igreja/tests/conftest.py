@@ -8,21 +8,16 @@ NAMES = [
 ]
 
 
+@pytest.fixture(autouse=True)
+def set_global_state():
+    ...
+
 def pytest_collection_modifyitems(items: list[DoctestItem]):
     for _, item in enumerate(items):
         for name in NAMES:
             if name in item.name:
+                from django.conf import settings
+                print(settings.DATABASES)
                 item.add_marker("django_db")
 
-    call_command("migrate")
-
-
-@pytest.fixture(scope="session")
-def django_db_setup(settings):
-    print(settings.DATABASES)
-
-    settings.DATABASES["default"] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-    }
-    print(settings.DATABASES)
+    # call_command("migrate")

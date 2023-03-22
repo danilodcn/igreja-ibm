@@ -1,3 +1,3 @@
 
 def test_meu(settings):
-    print(settings.DATABASES)
+    print(settings.DATABASES, "aqui" * 100)
