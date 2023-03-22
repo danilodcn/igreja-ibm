@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email: str, password: str | None=None, **kwargs):
+    def create_user(self, email: str, password: str | None = None, **kwargs):
         """
         método usado para criar e atribuir uma senha a um usuário
 
@@ -37,7 +37,7 @@ class CustomUserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password: str | None=None, **kwargs):
+    def create_superuser(self, email, password: str | None = None, **kwargs):
         kwargs["is_staff"] = True
         kwargs["is_superuser"] = True
 
@@ -45,7 +45,7 @@ class CustomUserManager(BaseUserManager):
 
     def get_by_natural_key(self, email):
         return self.get(email__iexact=email)
-    
+
     def filter(self, *args, **kwargs):
         if email := kwargs.pop("email", None):
             kwargs["email__iexact"] = email

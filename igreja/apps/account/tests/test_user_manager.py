@@ -1,8 +1,9 @@
-from igreja.apps.account.models import CustomUser
-from faker import Faker
-import pytest
 import secrets
 
+import pytest
+from faker import Faker
+
+from igreja.apps.account.models import CustomUser
 
 fake = Faker()
 
@@ -33,8 +34,7 @@ def test_create_simple_user_without_email(db):
 def test_create_simple_user_with_password(db):
     password = secrets.token_hex()
     user: CustomUser = CustomUser.objects.create_user(
-        email=fake.email(),
-        password=password
+        email=fake.email(), password=password
     )
 
     assert user.password and user.password != password
@@ -50,8 +50,7 @@ def test_create_super_user_without_email(db):
 def test_create_super_user_with_password(db):
     password = secrets.token_hex()
     user: CustomUser = CustomUser.objects.create_superuser(
-        email=fake.email(),
-        password=password
+        email=fake.email(), password=password
     )
 
     assert isinstance(user, CustomUser)

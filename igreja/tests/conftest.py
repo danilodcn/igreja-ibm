@@ -1,7 +1,6 @@
 import pytest
 from _pytest.doctest import DoctestItem
 
-
 NAMES = [
     "igreja.apps.core.utils.utils.get_admin_url",
     "igreja.apps.account.managers",
