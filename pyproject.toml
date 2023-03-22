@@ -41,6 +41,8 @@ pytest = "^7.2.2"
 pytest-cov = "^4.0.0"
 pytest-django = "^4.5.2"
 rich = "^13.3.2"
+factory-boy = "^3.2.1"
+pytest-xdist = "^3.2.1"
 
 [tool.poetry.group.doc.dependencies]
 mkdocs = "^1.4.2"
@@ -65,11 +67,11 @@ DJANGO_SETTINGS_MODULE="igreja.settings"
 
 [tool.pytest.ini_options]
 pythonpath = "."
-addopts = "--doctest-modules --strict-markers --migrations --reuse-db --create-db --ds=igreja.tests.settings"
+addopts = "--doctest-modules --migrations --reuse-db --create-db --ds=igreja.tests.settings"
 python_files = "tests.py test_*.py *_tests.py"
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "serial",
+    "testing: testando",
 ]
 
 filterwarnings = [

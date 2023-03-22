@@ -1,5 +1,5 @@
 pgdata/
-*.sqlite3
+*.sqlite3*
 .secrets.*
 staticfiles/
 ### Django ###
