@@ -34,8 +34,5 @@ jobs:
       run: |
         poetry run task lint
 
-    - name: Archive code coverage results
-      uses: actions/upload-artifact@v3
-      with:
-        name: code-coverage-report
-        path: htmlcov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
