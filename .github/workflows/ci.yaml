@@ -33,9 +33,3 @@ jobs:
     - name: Linting
       run: |
         poetry run task lint
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage.xml
-        token: 9f0a21dc-8c0c-4fff-b05f-056be1aa0cf9
