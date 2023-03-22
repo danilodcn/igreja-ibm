@@ -6,6 +6,9 @@ on:
 
 env:
   PYTHON_ENV: "3.10"
+  SECRET_KEY: "secret"
+  SITE_ABSOLUTE_URL: "localhost:8080"
+  DEBUG: true
 
 jobs:
   ci:
