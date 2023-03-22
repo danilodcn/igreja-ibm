@@ -99,6 +99,7 @@ run_command = "poetry run"
 [tool.taskipy.tasks]
 format = "isort . && black ."
 docs = " mkdocs serve -a 0.0.0.0:9000"
-lint = "black --check --diff . && isort --check --diff ."
+lint = "black --check --diff . && isort --check --diff . && flake8 igreja"
 test = "pytest -s --cov=igreja -vv"
 post_test = "coverage html && rm .coverage"
+clear = "make clear"

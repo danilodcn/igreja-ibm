@@ -4,6 +4,14 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
+        """
+        método usado para criar e atribuir uma senha a um usuário
+        Examples:
+            >>> from igreja.apps.account.models import CustomUser
+            >>> CustomUser.objects.all().count() # retorna o número de usuários na base da dados
+            0
+            >>> user = CustomUser.objects.create_user('meu@email.com', 'password')
+        """
         if not email:
             raise ValueError(_("Email is required"))
 

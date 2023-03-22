@@ -4,8 +4,8 @@ from typing import Any, List, Tuple
 from urllib.parse import urljoin
 
 from django.conf import settings
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
 
 
 def get_filename(filename: str) -> str:
@@ -36,7 +36,7 @@ def get_admin_url(obj):
         >>> user = CustomUser.objects.all().first()
         >>> url = get_admin_url(user)
         >>> url
-        "/admin/account/customuser/1/change/"
+        '/admin/account/customuser/1/change/'
     """
     assert isinstance(obj, models.Model), "deve ser uma instancia de Model"
     return reverse(
