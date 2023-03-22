@@ -65,7 +65,7 @@ DJANGO_SETTINGS_MODULE="igreja.settings"
 
 [tool.pytest.ini_options]
 pythonpath = "."
-addopts = "--doctest-modules --strict-markers"
+addopts = "--doctest-modules --strict-markers --migrations"
 python_files = "tests.py test_*.py *_tests.py"
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
