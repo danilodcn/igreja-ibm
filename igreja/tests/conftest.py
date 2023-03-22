@@ -8,11 +8,6 @@ NAMES = [
 ]
 
 
-@pytest.fixture(autouse=True)
-def set_global_state():
-    ...
-
-
 def pytest_collection_modifyitems(items: list[DoctestItem]):
     for _, item in enumerate(items):
         for name in NAMES:
