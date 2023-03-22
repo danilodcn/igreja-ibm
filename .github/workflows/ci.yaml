@@ -28,7 +28,7 @@ jobs:
 
     - name: Tests
       run: |
-        poetry run task test
+        poetry run pytest
 
     - name: Linting
       run: |

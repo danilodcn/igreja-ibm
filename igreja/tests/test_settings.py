@@ -1,6 +1,3 @@
 
-def test_meu(db):
-    ...
-
-def test_meu2(db):
-    ...
+def test_meu(settings):
+    print(settings.DATABASES)

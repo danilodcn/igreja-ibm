@@ -14,18 +14,12 @@ def pytest_collection_modifyitems(items: list[DoctestItem]):
                 item.add_marker("django_db")
 
 
-@pytest.fixture(autouse=True)
-def use_dummy_cache_backend(settings):
-    print(settings.DATABASES)
-
-
 @pytest.fixture(scope="session")
-def django_db_setup():
-    from django.conf import settings
+def django_db_setup(settings):
     print(settings.DATABASES)
 
     settings.DATABASES["default"] = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test.db',
+        'NAME': 'db.sqlite3',
     }
     print(settings.DATABASES)
