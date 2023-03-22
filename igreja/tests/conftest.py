@@ -14,13 +14,6 @@ def pytest_collection_modifyitems(items: list[DoctestItem]):
                 item.add_marker("django_db")
 
 
-@pytest.fixture(scope='session')
-def django_db_setup():
-   
-    breakpoint()
-    settings.DATABASES['default']['NAME'] = 'the_copied_db'
-
-
 @pytest.fixture(autouse=True)
 def use_dummy_cache_backend(settings):
     print(settings.DATABASES)
