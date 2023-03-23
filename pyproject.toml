@@ -1,20 +1,27 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "igreja-ibm"
 version = "0.1.0"
 description = ""
-authors = ["Danilo Nascimento <daconnas.dcn@gmail.com>"]
+authors = [ "Danilo Nascimento <daconnas.dcn@gmail.com>",]
 readme = "README.md"
-packages = [{include = "igreja"}]
+[[tool.poetry.packages]]
+include = "igreja"
 
 [tool.black]
 line-length = 80
 target-version = [ "py39",]
 include = "\\.pyi?$"
 
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = "igreja.settings"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-django = "^4.1.6"
+django = "^4.1.7"
 gunicorn = "^20.1.0"
 django-model-utils = "^4.3.1"
 django-extensions = "^3.2.1"
@@ -22,75 +29,24 @@ requests = "^2.28.2"
 pillow = "^9.4.0"
 psycopg2 = "^2.9.5"
 dj-database-url = "^1.2.0"
-python-decouple = "^3.7"
-newrelic = "^8.6.0"
+python-decouple = "^3.8"
+newrelic = "^8.7.1"
 django-ckeditor = "^6.5.1"
-django-ordered-model = "^3.6"
-django-import-export = "^3.0.2"
+django-ordered-model = "^3.7.4"
+django-import-export = "^3.1.0"
 django-crispy-forms = "^2.0"
 crispy-bootstrap5 = "^0.7"
 taskipy = "^1.10.3"
-
-
-[tool.poetry.group.dev.dependencies]
-ipdb = "^0.13.11"
-black = "^23.1.0"
-isort = "^5.12.0"
-flake8 = "^6.0.0"
-pytest = "^7.2.2"
-pytest-cov = "^4.0.0"
-pytest-django = "^4.5.2"
-rich = "^13.3.2"
-factory-boy = "^3.2.1"
-pytest-xdist = "^3.2.1"
-
-[tool.poetry.group.doc.dependencies]
-mkdocs = "^1.4.2"
-mkdocs-material = "^9.1.1"
-mkdocs-pdf-export-plugin = "^0.5.10"
-mkdocs-minify-plugin = "^0.6.2"
-mkdocs-git-revision-date-localized-plugin = "^1.2.0"
-mkdocstrings = "^0.20.0"
-mkdocstrings-python = "^0.8.3"
-mkdocs-macros-plugin = "^0.7.0"
-jinja2 = "^3.1.2"
-
-[tool.poetry.group.prod.dependencies]
-django-model-utils = "^4.3.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.pytest]
-DJANGO_SETTINGS_MODULE="igreja.settings"
 
 [tool.pytest.ini_options]
 pythonpath = "."
 addopts = "--doctest-modules --migrations --reuse-db --create-db --ds=igreja.tests.settings"
 python_files = "tests.py test_*.py *_tests.py"
-markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "testing: testando",
-]
-
-filterwarnings = [
-    "error",
-    'ignore:pkg_resources is deprecated as an API:DeprecationWarning',
-]
+markers = [ "slow: marks tests as slow (deselect with '-m \"not slow\"')", "testing: testando",]
+filterwarnings = [ "error", "ignore:pkg_resources is deprecated as an API:DeprecationWarning",]
 
 [tool.coverage.run]
-omit = [
-    "tests.py",
-    "test_*.py", 
-    "*_tests.py",
-    "igreja/apps/*/migrations/*.py",
-    "igreja/scripts/*",
-    "igreja/asgi.py",
-    "igreja/settings.py",
-    "igreja/urls.py",
-    "igreja/wsgi.py",
-]
+omit = [ "tests.py", "test_*.py", "*_tests.py", "igreja/apps/*/migrations/*.py", "igreja/scripts/*", "igreja/asgi.py", "igreja/settings.py", "igreja/urls.py", "igreja/wsgi.py",]
 
 [tool.taskipy.settings]
 use_vars = true
@@ -105,3 +61,30 @@ lint = "black --check --diff . && isort --check --diff ."
 test = "pytest -s --cov=igreja -vv"
 post_test = "coverage html && rm .coverage"
 clear = "make clear"
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
+black = "^23.1.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+pytest = "^7.2.2"
+pytest-cov = "^4.0.0"
+pytest-django = "^4.5.2"
+rich = "^13.3.2"
+factory-boy = "^3.2.1"
+pytest-xdist = "^3.2.1"
+toml = "^0.10.2"
+
+[tool.poetry.group.doc.dependencies]
+mkdocs = "^1.4.2"
+mkdocs-material = "^9.1.1"
+mkdocs-pdf-export-plugin = "^0.5.10"
+mkdocs-minify-plugin = "^0.6.2"
+mkdocs-git-revision-date-localized-plugin = "^1.2.0"
+mkdocstrings = "^0.20.0"
+mkdocstrings-python = "^0.8.3"
+mkdocs-macros-plugin = "^0.7.0"
+jinja2 = "^3.1.2"
+
+[tool.poetry.group.prod.dependencies]
+django-model-utils = "^4.3.1"
