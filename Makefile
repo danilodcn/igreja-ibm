@@ -13,6 +13,8 @@ clear:
 	find . -type f -path "*.egg-info*" -delete
 	find . -type d -path "*.egg-info" -delete
 	rm -f ./.coverage
+	rm -r htmlcov dist .pytest_cache staticfiles/statics
+	find . -type f -name "*.sqlite3_*" -delete
 
 .PHONE: run
 
