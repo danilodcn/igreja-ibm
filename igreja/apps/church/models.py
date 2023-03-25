@@ -24,6 +24,7 @@ class MemberType(OrderedModel):
         db_table = "church_member_type"
         verbose_name = "Tipo de membro"
         verbose_name_plural = "Tipos de membros"
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name or " - "
@@ -48,6 +49,7 @@ class ChurchMinistry(OrderedModel):
         db_table = "church_church_ministry"
         verbose_name = "Ministério da Igreja"
         verbose_name_plural = "Ministérios da Igreja"
+        ordering = ["id"]
 
     def __str__(self) -> str:
         return self.name or " - "
