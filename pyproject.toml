@@ -46,7 +46,7 @@ markers = [ "slow: marks tests as slow (deselect with '-m \"not slow\"')", "test
 filterwarnings = [ "error", "ignore:pkg_resources is deprecated as an API:DeprecationWarning",]
 
 [tool.coverage.run]
-omit = [ "tests.py", "test_*.py", "*_tests.py", "igreja/apps/*/migrations/*.py", "igreja/scripts/*", "igreja/asgi.py", "igreja/settings.py", "igreja/urls.py", "igreja/wsgi.py",]
+omit = [ "tests.py", "test_*.py", "*/tests/**/*.py", "*_tests.py", "igreja/apps/*/migrations/*.py", "igreja/scripts/*", "igreja/asgi.py", "igreja/settings.py", "igreja/urls.py", "igreja/wsgi.py",]
 
 [tool.taskipy.settings]
 use_vars = true
