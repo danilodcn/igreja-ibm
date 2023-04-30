@@ -17,6 +17,7 @@
 
   <div class="search-bar">
     <form class="search-form d-flex align-items-center" method="POST" action="#">
+      {% csrf_token %}
       <input type="text" name="query" placeholder="Search" title="Enter search keyword">
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
@@ -48,8 +49,8 @@
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header">
-            You have 4 new notifications
-            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            Você tem N novas notificações
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todas</span></a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -107,7 +108,7 @@
             <hr class="dropdown-divider">
           </li>
           <li class="dropdown-footer">
-            <a href="#">Show all notifications</a>
+            <a href="#">Ver todas as notificações</a>
           </li>
 
         </ul><!-- End Notification Dropdown Items -->
