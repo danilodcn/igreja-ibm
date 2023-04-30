@@ -1,5 +1,5 @@
 dev:
-	newrelic-admin run-program ./manage.py runserver 0.0.0.0:5000
+	./manage.py runserver 0.0.0.0:5000
 
 run:
 	@ echo Runnig the production apllication
