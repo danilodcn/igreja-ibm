@@ -49,23 +49,19 @@ class AjaxView(View):
 
     def post(self, request: HttpRequest) -> HttpResponse:
         form = self.get_form()
-        import time
-
-        time.sleep(2)
-        if form.is_valid():
+        is_valid = form.is_valid()
+        if is_valid:
             form = self.form_valid()
             status = self.status_success
-            success = True
         else:
             status = self.status_error
-            success = False
 
         form_rendered = render_crispy_form(
-            form, context={"initial": request.POST}
+            form, context={"initial": self.request.POST}
         )
 
         return JsonResponse(
-            {"success": success, "errors": form.errors, "form": form_rendered},
+            {"success": is_valid, "errors": form.errors, "form": form_rendered},
             status=status,
         )
 

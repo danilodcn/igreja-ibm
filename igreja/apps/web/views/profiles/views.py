@@ -31,7 +31,7 @@ class ProfileView(LoginRequiredMixin, FormBaseView):
         kwargs["form"] = {
             "user": CustomUserForm(
                 initial={
-                    "email": "user.email",
+                    "email": user.email,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
                 }
@@ -107,9 +107,8 @@ class SavePassword(LoginRequiredMixin, AjaxView):
         password = self.request.POST.get("password_1")
 
         self.request.user.set_password(password)
-        logout(self.request)
 
         return form
-
+    
     def get_form(self, *args, **kwargs):
         return super().get_form(request=self.request)

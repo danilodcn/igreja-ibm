@@ -134,13 +134,14 @@ class ChangePasswordForm(HorizontalFormMixin, forms.Form):
         if not self.request:
             raise forms.ValidationError("Erro interno!")
 
-        user = authenticate(
-            self.request,
-            email=self.request.user.email,
-            password=current_cleaned,
-        )
-        if not user:
-            raise forms.ValidationError("Senha incorreta!")
+        if self.request and self.request.user.pk:
+            user = authenticate(
+                self.request,
+                email=self.request.user.email,
+                password=current_cleaned,
+            )
+            if not user:
+                raise forms.ValidationError("Senha incorreta!")
 
         return current_cleaned
 
@@ -162,12 +163,6 @@ class ChangePasswordForm(HorizontalFormMixin, forms.Form):
         self.clean_password()
 
         return pass1
-
-    def clean_password_2(self):
-        pass2 = self.data.get("password_2", None)
-        self.clean_password()
-
-        return pass2
 
 
 class NotificationsAlertsModelForm(CheckFormMixin, forms.ModelForm):
