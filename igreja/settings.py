@@ -9,6 +9,7 @@ Examples:
 
 import os
 from pathlib import Path
+import warnings
 
 from decouple import Csv, config
 from dj_database_url import parse as parse_db_url
@@ -22,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
-SITE_ABSOLUTE_URL = config("SITE_ABSOLUTE_URL")
+SECRET_KEY = config("SECRET_KEY", default="insecure_key")
+SITE_ABSOLUTE_URL = config("SITE_ABSOLUTE_URL", default="http://localhost:8080")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG: bool = config("DEBUG", default=True, cast=bool)
@@ -119,7 +120,6 @@ DATABASES = {
         cast=parse_db_url,
     )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -245,3 +245,7 @@ CKEDITOR_CONFIGS = {
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_ALLOWED_TEMPLATE_PACKS = CRISPY_TEMPLATE_PACK
+
+if "insecure" in SECRET_KEY:
+    warnings.warn("Chave secreta é insegura!",)
+    assert DEBUG, "chave insegura não aceita em ambiente de produção"
