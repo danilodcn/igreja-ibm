@@ -1,9 +1,18 @@
 version: '3.4'
 
 services:
+  app:
+    build: .
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+
   db:
     image: postgres
     restart: always
+    depends_on:
+      - app
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_NAME=postgres
@@ -11,8 +20,3 @@ services:
       - 5432:5432
     volumes:
       - ./.docker/db/pgdata:/var/lib/postgresql/data
-
-  broker:
-    image: rabbitmq:alpine
-    ports:
-      - 5672:5672

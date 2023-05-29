@@ -8,8 +8,8 @@ version = "0.1.0"
 description = ""
 authors = [ "Danilo Nascimento <daconnas.dcn@gmail.com>",]
 readme = "README.md"
-[[tool.poetry.packages]]
-include = "igreja"
+packages = [{include = "igreja"}]
+
 
 [tool.black]
 line-length = 80

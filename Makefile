@@ -1,9 +1,9 @@
 dev:
-	./manage.py runserver 0.0.0.0:5000
+	poetry run python manage.py runserver 0.0.0.0:5000
 
 run:
 	@ echo Runnig the production apllication
-	newrelic-admin run-program gunicorn igreja.wsgi
+	poetry run sh scripts/entrypoint.sh
 
 clear:
 	find . -type f -name "*.pyc" -delete
