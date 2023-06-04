@@ -1,6 +1,9 @@
 from django import forms
-
+from django.contrib.auth import authenticate
 from igreja.apps.account.models import CustomUser
+from igreja.apps.core.views.ajax_base_view import AjaxFormMixin
+from igreja.apps.web.views.profiles.forms import HorizontalFormMixin
+
 
 
 class CustomUserForm(forms.ModelForm):
@@ -49,7 +52,7 @@ class CustomUserForm(forms.ModelForm):
         ]
 
 
-class LoginForm(forms.Form):
+class LoginForm(HorizontalFormMixin, AjaxFormMixin, forms.Form):
     email = forms.EmailField(
         max_length=100,
         label="Email",
@@ -57,12 +60,19 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         max_length=100,
         label="Senha",
+        widget=forms.PasswordInput(),
+        required=True
     )
 
+    def validate_user(self, email: str, password: str):
+        user = authenticate(self.request, email=email, password=password)
+        return bool(user)
+
     def clean_email(self):
-        email_cleaned = self.cleaned_data.get("email")
-        if not CustomUser.objects.filter(email__iexact=email_cleaned).exists():
-            raise forms.ValidationError(
-                "Email não existe na nossa base de dados"
-            )
+        email_cleaned = self.data.get("email")
+        password = self.data.get("password")
+
+        if not self.validate_user(email_cleaned, password):
+            raise forms.ValidationError("email ou senha inválido!")
+
         return email_cleaned

@@ -25,20 +25,9 @@
                   <h5 class="card-title text-center pb-0 fs-4">Entre em sua conta</h5>
                   <p class="text-center small">Use email e senha para entrar em sua conta</p>
                 </div>
-  
-                <form class="row g-3 needs-validation" novalidate method="POST">
-                  {% csrf_token %}
 
-                  <div class="col-12">
-                    <label for="{{ form.email.auto_id }}" class="form-label">Seu email</label>
-                    <input type="email" name="{{ form.email.name }}" class="form-control" id="{{ form.email.auto_id }}" required>
-                    <div class="invalid-feedback">Por favor, insira um email válido!</div>
-                  </div>
-  
-                  <div class="col-12">
-                    <label for="{{ form.password.auto_id }}" class="form-label">Senha</label>
-                    <input type="password" name="{{ form.password.name }}" class="form-control" id="{{ form.password.auto_id }}" required>
-                    <div class="invalid-feedback">Insira sua senha!</div>
+                <form method="POST" id="id-login-form-form">
+                  <div id="id-div-login-form">
                   </div>
   
                   <div class="col-12 mt-4 mb-2">
@@ -47,8 +36,7 @@
                   <div class="col-12">
                     <p class="small mb-0">Já possui conta? <a href="{% url 'create_account' %}?{{ request.query_string }}">Entre clicando aqui</a></p>
                   </div>
-                </form>
-  
+                </form><!-- End Change Password Form -->
               </div>
             </div>
           </div>
@@ -60,3 +48,28 @@
   </div>
 
 {% endblock main %}
+
+
+{% block scripts %}
+  <script>
+    const formLoginSelector = "#id-login-form-form"
+    $(document).ready(()=>{
+      const loginFormUrl = "{% url 'login-form' %}"
+      formAjax({
+        formSelector: formLoginSelector,
+        method: "get",
+        url: loginFormUrl,
+        loading: true,
+        addEvent: true,
+        events: {
+          submit: async (response=undefined) => {
+            if (response.status == 200) {
+              window.location.reload()
+            }
+          },
+        }
+      })
+    })
+  </script>
+
+{% endblock scripts %}

@@ -400,30 +400,59 @@ class HttpClient {
   }
 }
 
-async function formAjax(formSelector, divSelector, url, loading=false, callback= async () => {}) {
-  if (loading) {
+const httpClient = new HttpClient()
+
+
+async function formAjax(
+  config = {
+    formSelector: undefined,
+    method: "post",
+    url: undefined,
+    loading: false,
+    callback: async (response=undefined) => {},
+    events: {submit: async (response=undefined) => {}},
+  }
+) {
+  if (config.loading) {
     useLoading.show()
   }
-  if (!divSelector) {
-    divSelector = formSelector
-  }
 
-  const data = $(formSelector).serialize()
+  divSelector = $(config.formSelector).find("div")
+  if (divSelector.length == 0) {
+    throw new Error("deve existir ao menos uma div dentro do `form`")
+  }
+  divSelector = divSelector[0]
+
+  const data = $(config.formSelector).serialize()
   
-  response = await  httpClient.post(url, { data }).catch(({response}) => response)
+  response = await  httpClient.request(config.url, { data, method: config.method }).catch(({response}) => response)
   
   const formHtml = response?.data?.form
+
   if (formHtml) 
     $(divSelector).html(formHtml)
 
-  if (loading) {
+  if (config.loading) {
     console.log("saindo ...")
     setTimeout(() => {
       console.log(new Date())
       useLoading.hide()
     }, 500);
   }
-  await callback()
-}
 
-const httpClient = new HttpClient()
+  if (config.addEvent) {
+    $(config.formSelector).submit(e => {
+      formAjax({
+        formSelector: config.formSelector,
+        url: config.url,
+        loading: config.loading,
+        method: "POST",
+        callback: config.events.submit
+      })
+      return false
+    })
+  }
+
+  if (config.callback)
+    await config.callback(response)
+}

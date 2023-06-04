@@ -2,13 +2,13 @@ from copy import deepcopy
 from typing import Any
 
 from django.contrib import messages
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render, resolve_url
 
 from igreja.apps.account.models import CustomUser
-from igreja.apps.web.views.base_views import AjaxView, FormBaseView
+from igreja.apps.core.views.ajax_base_view import AjaxView
+from igreja.apps.web.views.base_views import FormBaseView
 from igreja.apps.web.views.profiles.forms import (
     AddressModelForm,
     ChangePasswordForm,

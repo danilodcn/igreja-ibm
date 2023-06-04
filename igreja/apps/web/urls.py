@@ -13,6 +13,7 @@ urlpatterns = [
     ),
     path("accounts/logout/", accounts.user_logout, name="logout"),
     path("accounts/login/", accounts.AccountLoginView.as_view(), name="login"),
+    path("accounts/login-form/", accounts.LoginView.as_view(), name="login-form"),
     path(
         "accounts/profile",
         profile_views.ProfileView.as_view(),
